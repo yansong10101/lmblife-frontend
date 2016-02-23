@@ -1,0 +1,45 @@
+{
+  "name": "redux-template",
+  "version": "1.0.0",
+  "description": "An react redux with webpack hot load template project.",
+  "main": "npm start",
+  "scripts": {
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --history-api-fallback"
+  },
+  "author": "ypling",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^6.3.3",
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "babel-plugin-react-transform": "^2.0.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "bootstrap": "^4.0.0-alpha.2",
+    "bootstrap-sass": "^3.3.6",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "history": "^1.17.0",
+    "imports-loader": "^0.6.5",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.7",
+    "react-bootstrap": "^0.28.1",
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.4.0",
+    "react-router": "^2.0.0-rc6",
+    "react-router-redux": "^3.0.0",
+    "react-tinymce": "^0.4.0",
+    "react-transform-hmr": "^1.0.2",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "tinymce": "^4.3.2",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.14.1"
+  }
+}
