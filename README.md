@@ -1,1 +1,1 @@
-# lmblife-frontend
+# reduxTemplate
