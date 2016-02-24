@@ -12,14 +12,14 @@ class Content extends Component{
     this.props.dispatch(editPage());
   }
   _deleteClickHandler() {
-    this.props.dispatch(deletePage(this.props.route,this.props.currentPage.title));
+    this.props.dispatch(deletePage(this.props.folderPath,this.props.currentPage.title));
   }
   render() {
     return (
         <div>
           <div className="row">
             <div className="col-xs-12">
-              <Breadcrumb route={this.props.route} activeLastOne={true}/>
+              <Breadcrumb folderPath={"wiki/"+this.props.folderPath} activeLastOne={true}/>
               <div key="contentButtons" className="pull-right">
                 <button className="btn btn-default" onClick={this._editClickHandler}>
                   <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>

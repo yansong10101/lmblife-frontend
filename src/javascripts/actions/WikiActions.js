@@ -1,6 +1,7 @@
 import {routeActions} from 'react-router-redux';
 import * as ActionTypes from '../constants/ActionTypes.js';
 import * as WikiItemTypes from '../constants/WikiItemTypes.js';
+import * as WikiViews from './../constants/WikiViews.js';
 import api from '../API/mock/wikiAPI';
 import SDK from '../SDK/wikiSDK';
 /* eslint-disable no-console */
@@ -41,10 +42,7 @@ export const deletePage = (path, title)=> {
         console.log('wiki action: delete page');
         var s3Key = path + title + '.json';
         SDK.deletePage(s3Key).then(() => {
-            dispatch(routeActions.push('/wiki/' + path));
-            dispatch({
-                type: ActionTypes.DELETE_PAGE
-            });
+            dispatch(getFolderItems(path));
         });
     }
 };
@@ -57,13 +55,44 @@ export const cancelEdit = ()=> {
     }
 };
 
-export const routing = (path = "")=> {
-    console.log(path)
+export const init = (path = "")=> {
     return dispatch=> {
-        console.log('wiki action: routing');
+        console.log('wiki action: init');
+        var route=path.split("/");
+        if(route.pop()===""){
+            console.log('get folderItems');
+            SDK.getItems(path).then(function (items) {
+                dispatch({
+                    type: ActionTypes.INITWIKI,
+                    view:WikiViews.FOLDER,
+                    items,
+                    page:null,
+                    path
+                });
+            });
+        }else{
+            console.log('get folderItems&pageContent');
+            route=route.map(name=>name+"/");
+            Promise.all([SDK.getItems(route.join("")),SDK.getPage(path+".json")]).then(data=>{
+                dispatch({
+                    type: ActionTypes.INITWIKI,
+                    view:WikiViews.CONTENT,
+                    items:data[0],
+                    page:data[1],
+                    path:route.join("")
+                });
+            });
+        }
+
+    }
+};
+export const getFolderItems = (path = "")=> {
+    return dispatch=> {
+        console.log('wiki action: select item, folder');
         SDK.getItems(path).then(function (items) {
+            dispatch(routeActions.push("/wiki/" + path));
             dispatch({
-                type: ActionTypes.ROUTING,
+                type: ActionTypes.SELECT_FOLDER,
                 path,
                 items
             });
@@ -74,15 +103,13 @@ export const routing = (path = "")=> {
 export const selectItem = (item)=> {
     return dispatch=> {
         if (item.type === WikiItemTypes.FOLDER) {
-            console.log('wiki action: select item, folder');
-            dispatch(routeActions.push("/wiki/" + item.path));
-            dispatch(routing(item.path));
-            // location.href = 'wiki/' + item.path;
+            dispatch(getFolderItems(item.path))
         } else {
             console.log('wiki action: select item, page');
             SDK.getPage(item.path).then(page => {
+                dispatch(routeActions.push("/wiki/" + item.path.slice(0,-5)));
                 dispatch({
-                    type: ActionTypes.SELECT_ITEM,
+                    type: ActionTypes.SELECT_PAGE,
                     page
                 });
             });
