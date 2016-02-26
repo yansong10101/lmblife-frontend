@@ -4,7 +4,12 @@
 import {FOLDER} from '../constants/WikiViews.js'
 export const initialState = {
     routing: {
-        location: {}
+        location: {
+            pathname:"/wiki/",
+            search:"",
+            hash:"",
+            state:null
+        }
     },
     user: {
         showLogin: false
@@ -16,6 +21,6 @@ export const initialState = {
         currentView: FOLDER,
         currentPage: null,
         folderItems: [],
-        route: ""
+        folderPath: ""
     }
 };

@@ -25,7 +25,7 @@ class Folder extends Component {
     _createFolderClickHandler() {
         var folderName = prompt('create folder', 'please enter a folder name');
         if (folderName) {
-            this.props.dispatch(createFolder(this.props.route + folderName));
+            this.props.dispatch(createFolder(this.props.folderPath + folderName));
         }
     }
 
@@ -49,7 +49,7 @@ class Folder extends Component {
             <div>
                 <div className="row">
                     <div className="col-xs-12">
-                        <Breadcrumb route={this.props.route} activeLastOne={false}/>
+                        <Breadcrumb folderPath={"wiki/"+this.props.folderPath} activeLastOne={true}/>
 
                         <div key="contentButtons" className="pull-right">
                             <button className="btn btn-default" onClick={this._createFolderClickHandler}>

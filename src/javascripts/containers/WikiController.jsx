@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Wiki from './../components/wiki/Wiki.jsx';
-import {routing} from '../actions/WikiActions.js';
+import {init} from '../actions/WikiActions.js';
 import {connect} from 'react-redux';
 import {FOLDER} from '../constants/WikiViews.js';
 
@@ -11,13 +11,15 @@ class WikiController extends Component {
 
     componentDidMount() {
         if (this.props.folderItems.length === 0)
-            this.props.dispatch(routing(this.props.params.splat));
+            this.props.dispatch(init(this.props.params.splat));
     }
-
+    componentWillReceiveProps(nextProps){
+        console.log("update",nextProps);
+    }
     render() {
         return (
             <Wiki currentPage={this.props.currentPage} view={this.props.currentView}
-                  folderItems={this.props.folderItems} route={this.props.route}
+                  folderItems={this.props.folderItems} folderPath={this.props.folderPath}
                   uploadedImageURL={this.props.uploadedImageURL}
                   dispatch={this.props.dispatch}
                 />
@@ -28,7 +30,7 @@ const mapStateToProps = state=>({
     currentPage: state.wiki.currentPage,
     currentView: state.wiki.currentView,
     folderItems: state.wiki.folderItems,
-    route: state.wiki.route,
+    folderPath: state.wiki.folderPath,
     uploadedImageURL: state.wiki.uploadedImageURL,
 });
 //const mapDispatchToProps = (dispatch)=>( {dispatch});

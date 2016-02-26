@@ -1,10 +1,5 @@
 import'../index.html';
-//import'../../node_modules/bootstrap/dist/css/bootstrap.css';
-//import'../../node_modules/tinymce/tinymce.min.js';
-//import'tinymce';
-//import'../myCss.css';
-
-import '!style!css!sass!../stylesheets/styles.scss';
+//import '!style!css!sass!../stylesheets/styles.scss';
 import $ from '../../bower_components/jQuery/dist/jquery.min.js';
 import sdk from './SDK/adminSDK';
 

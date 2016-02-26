@@ -5,7 +5,7 @@ import {UPDATE_LOCATION} from 'react-router-redux';
 import * as ActionTypes from '../constants/ActionTypes.js';
 import * as WikiViews from '../constants/WikiViews.js';
 
-export const wiki = (state = {folderItems:[],route:""}, action)=> {
+export const wiki = (state = {folderItems:[],folderPath:""}, action)=> {
     switch (action.type) {
         case ActionTypes.EDIT_PAGE:
             return Object.assign({}, state, {currentView: WikiViews.EDITOR});
@@ -18,16 +18,25 @@ export const wiki = (state = {folderItems:[],route:""}, action)=> {
             return Object.assign({}, state, {
                 currentView: (state.currentPage) ? WikiViews.CONTENT : WikiViews.FOLDER
             });
-        case ActionTypes.ROUTING:
+        case ActionTypes.SELECT_FOLDER:
             return Object.assign({}, state, {
                 currentView: WikiViews.FOLDER,
-                route:action.path,
-                folderItems: action.items
+                folderPath:action.path,
+                folderItems: action.items,
+                currentPage: null,
+
             });
-        case ActionTypes.SELECT_ITEM:
+        case ActionTypes.SELECT_PAGE:
             return Object.assign({}, state, {
                 currentView: WikiViews.CONTENT,
                 currentPage: action.page
+            });
+        case ActionTypes.INITWIKI:
+            return Object.assign({}, state, {
+                currentView: action.view,
+                folderPath:action.path,
+                currentPage: action.page,
+                folderItems: action.items
             });
         case ActionTypes.CREATE_FOLDER:
             return Object.assign({}, state, {});
@@ -42,7 +51,8 @@ export const wiki = (state = {folderItems:[],route:""}, action)=> {
             });
         case ActionTypes.DELETE_PAGE:
             return Object.assign({}, state, {
-                currentPage: null
+                currentPage: null,
+                currentView:WikiViews.FOLDER
             });
         default:
             return state;
