@@ -8,13 +8,11 @@ class WikiController extends Component {
     constructor(props, context) {
         super(props, context);
     }
-
-    componentDidMount() {
-        if (this.props.folderItems.length === 0)
-            this.props.dispatch(init(this.props.params.splat));
+    componentDidMount(){
+        console.log('wiki did mount');
     }
     componentWillReceiveProps(nextProps){
-        console.log("update",nextProps);
+        console.log("wiki receive props:");
     }
     render() {
         return (

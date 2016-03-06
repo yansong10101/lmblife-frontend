@@ -42,7 +42,7 @@ export const deletePage = (path, title)=> {
         console.log('wiki action: delete page');
         var s3Key = path + title + '.json';
         SDK.deletePage(s3Key).then(() => {
-            dispatch(getFolderItems(path));
+            dispatch(routeActions.push("/wiki/" + path));
         });
     }
 };
@@ -90,12 +90,12 @@ export const getFolderItems = (path = "")=> {
     return dispatch=> {
         console.log('wiki action: select item, folder');
         SDK.getItems(path).then(function (items) {
-            dispatch(routeActions.push("/wiki/" + path));
             dispatch({
                 type: ActionTypes.SELECT_FOLDER,
                 path,
                 items
             });
+            dispatch(routeActions.push("/wiki/" + path));
         });
     }
 };
@@ -103,16 +103,17 @@ export const getFolderItems = (path = "")=> {
 export const selectItem = (item)=> {
     return dispatch=> {
         if (item.type === WikiItemTypes.FOLDER) {
-            dispatch(getFolderItems(item.path))
+            dispatch(routeActions.push("/wiki/"+item.path))
         } else {
-            console.log('wiki action: select item, page');
-            SDK.getPage(item.path).then(page => {
-                dispatch(routeActions.push("/wiki/" + item.path.slice(0,-5)));
-                dispatch({
-                    type: ActionTypes.SELECT_PAGE,
-                    page
-                });
-            });
+            //console.log('wiki action: select item, page');
+            //SDK.getPage(item.path).then(page => {
+            //    dispatch({
+            //        type: ActionTypes.SELECT_PAGE,
+            //        page
+            //    });
+            //});
+            dispatch(routeActions.push("/wiki/" + item.path.slice(0,-5)));
+
         }
     };
 };

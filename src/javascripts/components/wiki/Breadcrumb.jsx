@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {routeActions} from 'react-router-redux';
 import {getFolderItems} from '../../actions/WikiActions.js';
 import {connect} from 'react-redux';
 
@@ -15,7 +16,7 @@ class Breadcrumb extends Component {
             if (!this.props.activeLastOne || arr.length !== index + 1) {
                 var path=_link;
                 return (<li key={index}>
-                    <a onClick={()=>{this.props.dispatch(getFolderItems(path.slice(6)))}}>{item}</a>
+                    <a onClick={()=>{this.props.dispatch(routeActions.push(path))}}>{item}</a>
                 </li>);
             } else {
                 //currentOne make it not click able
