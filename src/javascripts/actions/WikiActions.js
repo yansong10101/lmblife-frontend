@@ -55,13 +55,13 @@ export const cancelEdit = ()=> {
     }
 };
 
-export const init = (path = "")=> {
+export const init = (path = ""/*,newlocation,oldlocation=newlocation*/)=> {
     return dispatch=> {
         console.log('wiki action: init');
         var route=path.split("/");
         if(route.pop()===""){
             console.log('get folderItems');
-            SDK.getItems(path).then(function (items) {
+            SDK.getItems(path).then(items=> {
                 dispatch({
                     type: ActionTypes.INITWIKI,
                     view:WikiViews.FOLDER,
@@ -69,16 +69,20 @@ export const init = (path = "")=> {
                     page:null,
                     path
                 });
+                //dispatch({
+                //    type:"@@router/UPDATE_LOCATION",
+                //    payload:Object.assign(oldlocation,{action:"REPLACE"})
+                //})
             });
         }else{
             console.log('get folderItems&pageContent');
             route=route.map(name=>name+"/");
-            Promise.all([SDK.getItems(route.join("")),SDK.getPage(path+".json")]).then(data=>{
+            SDK.getPage(path+".json").then(page=>{
                 dispatch({
                     type: ActionTypes.INITWIKI,
                     view:WikiViews.CONTENT,
-                    items:data[0],
-                    page:data[1],
+                    items:null,
+                    page,
                     path:route.join("")
                 });
             });

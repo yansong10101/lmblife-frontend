@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ContainerWrapper from './ContainerWrapper.jsx';
 import {connect} from 'react-redux';
 import {init} from './../actions/WikiActions.js';
 
@@ -8,28 +9,22 @@ class RoutesManager extends Component {
         super(props, context);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('check location');
-        if (/^\/wiki\//.test(nextProps.location.pathname) && nextProps.location.key !== this.props.location.key) {
-
-            this.props.dispatch(init(nextProps.location.pathname.slice(6)));
-            return false;
+    render() {
+        let shouldUpdate=true;
+        if (/^\/wiki\//.test(this.props.location.pathname)  && this.oldkey !== this.props.location.key) {
+            this.props.dispatch(init(this.props.location.pathname.slice(6)/*,this.props.location,this.oldlocation*/));
+            shouldUpdate= false;
 
         }
-        return true;
-    }
-    componentWillReceiveProps(nextProps){
-        console.log("Router props update");
-    }
-    render() {
+        this.oldkey=this.props.location.key;
+        //this.oldlocation=this.props.location;
         return (
-            <div>
+            <ContainerWrapper shouldUpdate={shouldUpdate}>
                 {this.props.children}
-            </div>
-        );
+            </ContainerWrapper>
+        )
+
     }
 }
-const mapStateToProps = state=>({wiki:state.wiki});
-//const mapDispatchToProps = (dispatch)=>( {dispatch});
-
+const mapStateToProps = state=>({state});
 export default connect(mapStateToProps)(RoutesManager);

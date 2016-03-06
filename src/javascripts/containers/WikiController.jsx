@@ -8,12 +8,6 @@ class WikiController extends Component {
     constructor(props, context) {
         super(props, context);
     }
-    componentDidMount(){
-        console.log('wiki did mount');
-    }
-    componentWillReceiveProps(nextProps){
-        console.log("wiki receive props:");
-    }
     render() {
         return (
             <Wiki currentPage={this.props.currentPage} view={this.props.currentView}
@@ -29,7 +23,7 @@ const mapStateToProps = state=>({
     currentView: state.wiki.currentView,
     folderItems: state.wiki.folderItems,
     folderPath: state.wiki.folderPath,
-    uploadedImageURL: state.wiki.uploadedImageURL,
+    uploadedImageURL: state.wiki.uploadedImageURL
 });
 //const mapDispatchToProps = (dispatch)=>( {dispatch});
 

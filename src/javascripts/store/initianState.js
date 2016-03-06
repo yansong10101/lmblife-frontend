@@ -5,7 +5,7 @@ import {FOLDER} from '../constants/WikiViews.js'
 export const initialState = {
     routing: {
         location: {
-            pathname:"/wiki/",
+            pathname:"/",
             search:"",
             hash:"",
             state:null
