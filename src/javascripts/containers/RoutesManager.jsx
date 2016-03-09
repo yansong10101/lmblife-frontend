@@ -3,21 +3,24 @@ import ContainerWrapper from './ContainerWrapper.jsx';
 import {connect} from 'react-redux';
 import {init} from './../actions/WikiActions.js';
 
-
 class RoutesManager extends Component {
     constructor(props, context) {
         super(props, context);
     }
 
     render() {
-        let shouldUpdate=true;
-        if (/^\/wiki\//.test(this.props.location.pathname)  && this.oldkey !== this.props.location.key) {
-            this.props.dispatch(init(this.props.location.pathname.slice(6)/*,this.props.location,this.oldlocation*/));
-            shouldUpdate= false;
+        let shouldUpdate = true;
+        let view = this.props.location.pathname.split('/')[1];
+        if (view === 'wiki' && this.oldkey !== this.props.location.key) {
+            this.props.children.props.route.component.fetchData(this.props.dispatch, this.props.location.pathname.slice(6));
+            shouldUpdate = false;
 
         }
-        this.oldkey=this.props.location.key;
-        //this.oldlocation=this.props.location;
+        if (view === 'sdk' && this.oldkey !== this.props.location.key) {
+            this.props.children.props.route.component.fetchData(this.props.dispatch);
+            shouldUpdate = false;
+        }
+        this.oldkey = this.props.location.key;
         return (
             <ContainerWrapper shouldUpdate={shouldUpdate}>
                 {this.props.children}

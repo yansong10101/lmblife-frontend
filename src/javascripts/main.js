@@ -1,5 +1,5 @@
 import'../index.html';
-//import '!style!css!sass!../stylesheets/styles.scss';
+import '!style!css!sass!../stylesheets/styles.scss';
 import $ from '../../bower_components/jQuery/dist/jquery.min.js';
 import sdk from './SDK/adminSDK';
 

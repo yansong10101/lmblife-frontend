@@ -8,6 +8,11 @@ class WikiController extends Component {
     constructor(props, context) {
         super(props, context);
     }
+
+    static fetchData(dispatch,path) {
+        dispatch(init(path));
+    }
+
     render() {
         return (
             <Wiki currentPage={this.props.currentPage} view={this.props.currentView}

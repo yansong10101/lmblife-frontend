@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import User from '../components/user/User.jsx';
 import {connect} from 'react-redux';
 
-
 class UserController extends Component {
   constructor(props, context) {
     super(props, context);
@@ -15,6 +14,7 @@ class UserController extends Component {
     );
   }
 }
+
 const mapStateToProps = state=>({
   showLogin: state.user.showLogin
 });
