@@ -77,23 +77,26 @@ class Editor extends Component {
 
     //react life cycles
     render() {
+        var adminbar=this.props.admin?(  <div className="col-xs-12">
+                <Breadcrumb folderPath={this.props.folderPath} activeLastOne={true}/>
+
+                <div key="editorButtons" className="pull-right">
+                    <button className="btn btn-default" onClick={this._saveClickHandler}>
+                        <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        &nbsp;Save
+                    </button>
+                    <button className="btn btn-default" onClick={this._cancelClickHandler}>
+                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        &nbsp;Cancel
+                    </button>
+                </div>
+            </div>
+        ):""
+
         return (
             <div>
                 <div className="row">
-                    <div className="col-xs-12">
-                        <Breadcrumb folderPath={"wiki/"+this.props.folderPath} activeLastOne={true}/>
-
-                        <div key="editorButtons" className="pull-right">
-                            <button className="btn btn-default" onClick={this._saveClickHandler}>
-                                <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
-                                &nbsp;Save
-                            </button>
-                            <button className="btn btn-default" onClick={this._cancelClickHandler}>
-                                <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                &nbsp;Cancel
-                            </button>
-                        </div>
-                    </div>
+                    {adminbar}
                 </div>
                 <form>
                     <Input type="text" label="Title" placeholder="Please input a page tile." defaultValue={this._title}

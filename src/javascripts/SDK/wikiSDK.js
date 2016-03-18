@@ -5,6 +5,7 @@ export default {
         var promise = new Promise((resolve, reject) => {
             request
                 .post(config.APIHost + 'api/portal/keys/get/')
+                .type('form')
                 .send({
                     key_name: path
                 })
@@ -44,6 +45,7 @@ export default {
         var promise = new Promise((resolve, reject) => {
             request
                 .post(config.APIHost + 'api/portal/wiki/upload/')
+                .type('form')
                 .send({
                     old_path: oldPath,
                     new_path: newPath,
@@ -60,6 +62,7 @@ export default {
         var promise = new Promise((resolve, reject) => {
             request
                 .post(config.APIHost + 'api/portal/keys/delete/')
+                .type('form')
                 .send({
                     key_name: path
                 })

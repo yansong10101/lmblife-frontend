@@ -107,7 +107,7 @@ export const getFolderItems = (path = "")=> {
 export const selectItem = (item)=> {
     return dispatch=> {
         if (item.type === WikiItemTypes.FOLDER) {
-            dispatch(routeActions.push("/wiki/"+item.path))
+            dispatch(routeActions.push("/"+item.path))
         } else {
             //console.log('wiki action: select item, page');
             //SDK.getPage(item.path).then(page => {
@@ -116,7 +116,7 @@ export const selectItem = (item)=> {
             //        page
             //    });
             //});
-            dispatch(routeActions.push("/wiki/" + item.path.slice(0,-5)));
+            dispatch(routeActions.push("/" + item.path.slice(0,-5)));
 
         }
     };

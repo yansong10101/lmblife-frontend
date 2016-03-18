@@ -17,6 +17,7 @@ class App extends Component {
     constructor(props, context) {
         super(props, context);
     }
+
     render() {
         return (
             <div>
@@ -24,7 +25,9 @@ class App extends Component {
                 <Router history={browserHistory}>
                     <Route path="/" component={RoutesManager}>
                         <IndexRoute component={HomeController}/>
-                        <Route path="wiki(/**)" component={WikiController}/>
+                        <Route path="freshman_guide/**" component={WikiController}/>
+                        <Route path="everyday_life/**" component={WikiController}/>
+                        <Route path="graduation_guide/**" component={WikiController}/>
                         <Route path="sdk" component={SDKController}/>
                         <Route path="user" component={UserController}/>
                         <Route path="**" component={NoMatch}/>

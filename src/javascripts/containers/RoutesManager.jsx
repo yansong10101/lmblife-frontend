@@ -10,14 +10,8 @@ class RoutesManager extends Component {
 
     render() {
         let shouldUpdate = true;
-        let view = this.props.location.pathname.split('/')[1];
-        if (view === 'wiki' && this.oldkey !== this.props.location.key) {
-            this.props.children.props.route.component.fetchData(this.props.dispatch, this.props.location.pathname.slice(6));
-            shouldUpdate = false;
-
-        }
-        if (view === 'sdk' && this.oldkey !== this.props.location.key) {
-            this.props.children.props.route.component.fetchData(this.props.dispatch);
+        if (this.props.children.props.route.component.fetchData && this.oldkey !== this.props.location.key) {
+            this.props.children.props.route.component.fetchData(this.props.dispatch, this.props.location.pathname.slice(1));
             shouldUpdate = false;
         }
         this.oldkey = this.props.location.key;
