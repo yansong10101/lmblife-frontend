@@ -77,26 +77,27 @@ const sectionData = [
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
-
     }
-
     render() {
         return (
             <div>
-                <Cover2 logo={coverData.logo}
-                        content={coverData.content}
-                        button={coverData.button}
-                    img={coverData.img}/>
+                <Cover2
+                  logo={coverData.logo}
+                  content={coverData.content}
+                  button={coverData.button}
+                  img={coverData.img}
+                  user={this.props.user}
+                />
                 {sectionData.map((section, index)=>
-                        <SectionContent key={section.title+index} title={section.title}
-                                        content={section.content}
-                                        button={section.button}>
-                            {section.children}
-                        </SectionContent>
+                  <SectionContent
+                    key={section.title+index}
+                    title={section.title}
+                    content={section.content}
+                    button={section.button}>
+                      {section.children}
+                  </SectionContent>
                 )}
-
-                <Footer />
-
+                <Footer/>
             </div>
         );
     }
