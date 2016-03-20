@@ -34,7 +34,6 @@ export const login = (username, password)=> {
         type:actionTypes.RECEIVE_LOGIN,
         data
       });
-      dispatch(push('/user/email-confirm'));
       dispatch({
           type: actionTypes.CLOSE_LOGIN
         });

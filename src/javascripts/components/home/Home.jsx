@@ -13,10 +13,10 @@ const coverData = {
         text: "Join Us&Learn More",
         href: ""
     },
-    //img:{
-    //    src:"http://www.washington.edu/about/files/2014/09/Seattle375x240.jpg",
-    //    alt:""
-    //}
+    img:{
+        src:"http://www.washington.edu/about/files/2014/09/Seattle375x240.jpg",
+        alt:""
+    }
 };
 const eventData = [
     {
