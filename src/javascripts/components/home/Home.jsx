@@ -10,7 +10,7 @@ class Home extends Component{
   render() {
     return (
         <div className="container-fluid">
-          <Cover/>
+          <Cover user={this.props.user}/>
         </div>
     );
   }
