@@ -10,6 +10,7 @@ class UserController extends Component {
     return (
         <div id="user">
           <User showLogin={this.props.showLogin} dispatch={this.props.dispatch}/>
+          {this.props.children}
         </div>
     );
   }

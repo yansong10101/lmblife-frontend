@@ -4,17 +4,20 @@ import {connect} from 'react-redux';
 
 
 class HomeController extends Component {
-    constructor(props, context) {
-        super(props, context);
-    }
+  constructor(props, context) {
+    super(props, context);
+  }
 
-    render() {
-        return (
-            <Home dispatch={this.props.dispatch}/>
-        );
-    }
+  render() {
+    return (
+      <Home user={this.props.user}/>
+    );
+  }
 }
-//const mapStateToProps = state=>({state});
-//const mapDispatchToProps = (dispatch)=>( {dispatch});
+const mapStateToProps = state=> {
+  return {
+    user: state.user
+  }
+};
 
-export default connect()(HomeController);
+export default connect(mapStateToProps)(HomeController);
