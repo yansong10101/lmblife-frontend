@@ -81,7 +81,7 @@ export const init = (path = ""/*,newlocation,oldlocation=newlocation*/)=> {
                 dispatch({
                     type: ActionTypes.INITWIKI,
                     view:WikiViews.CONTENT,
-                    items:null,
+                    items:[],
                     page,
                     path:route.join("")
                 });

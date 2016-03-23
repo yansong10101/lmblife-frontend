@@ -12,6 +12,7 @@ import NavigationController from './containers/NavigationController.jsx';
 import LayoutController from './containers/LayoutController.jsx';
 import NoMatch from './components/NoMatch.jsx';
 import RoutesManager from './containers/RoutesManager.jsx';
+import SchoolList from './components/lmb/SchoolList.jsx';
 
 class App extends Component {
     constructor(props, context) {
@@ -19,6 +20,7 @@ class App extends Component {
     }
 
     render() {
+
         return (
             <div>
                 <NavigationController />
@@ -28,8 +30,11 @@ class App extends Component {
                         <Route path="freshman_guide/**" component={WikiController}/>
                         <Route path="everyday_life/**" component={WikiController}/>
                         <Route path="graduation_guide/**" component={WikiController}/>
+                        <Route path="about/**" component={WikiController}/>
+                        <Route path="wiki/**" component={WikiController}/>
                         <Route path="sdk" component={SDKController}/>
                         <Route path="user" component={UserController}/>
+                        <Route path="schools" component={SchoolList}/>
                         <Route path="**" component={NoMatch}/>
                     </Route>
                 </Router>

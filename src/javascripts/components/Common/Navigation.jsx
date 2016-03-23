@@ -7,7 +7,8 @@ import {
     NavItem,
     Nav,
     MenuItem,
-    NavDropdown
+    NavDropdown,
+    Input
 } from 'react-bootstrap';
 class Navigation extends Component {
     constructor(props, context) {
@@ -96,11 +97,33 @@ class Navigation extends Component {
 
                     }
                 ]
+            }, {
+                name: '关于我们',
+                path: "/about/",
+
+                dropDown: [
+                    {
+                        name: 'University of Dayton',
+                        path: "university/",
+
+                    }, {
+                        name: '赞助商',
+                        path: "sponsor/",
+
+                    }, {
+                        name: '留美帮',
+                        path: "lmb-life/",
+
+                    }, {
+                        name: '联系我们',
+                        path: "contact/",
+                    }
+                ]
             }
         ];
         const marginDiv = this.props.needMargin
             ? <div style={{
-          height: "60px"
+          height: "50px"
         }}></div>
             : null;
         const titles = [
@@ -125,29 +148,52 @@ class Navigation extends Component {
             <div>
                 <Navbar fixedTop={this.props.needMargin}>
                     <Navbar.Header>
-                        <Navbar.Brand >
-                            <a href="#" onClick={()=> {
-                                        this.props.dispatch(routeActions.push("/"))
-                                        }}>LOGO</a>
+                        <Navbar.Brand>
+                            <a href="javascript:void(0);" onClick={()=> {
+                                        this.props.dispatch(routeActions.push("/schools"))
+                                        }}
+                               style={{padding:"5px"}}>
+                                <img
+                                    src="http://s3-us-west-2.amazonaws.com/test-2016/test-upload/demo-upload/image_20160322184632661568.png"
+                                    alt="lmb-logo"
+                                    style={{height:"40px"}}/>
+                            </a>
                         </Navbar.Brand>
+                        <Navbar.Brand >
+                            <a href="javascript:void(0);" onClick={()=> {
+                                        this.props.dispatch(routeActions.push("/"))
+                                        }}
+                               style={{padding:"5px"}}
+                                >
+                                <img
+                                    src="http://s3-us-west-2.amazonaws.com/test-2016/test-upload/demo-upload/image_20160322173402659709.png"
+                                    alt="cssa UD LOGO"
+                                    style={{height:"40px"}}/>
+                            </a>
+                        </Navbar.Brand>
+                        <Navbar.Toggle />
                     </Navbar.Header>
-                    <Nav>
-                        {navigationData.map((item, index) =>
-                                <NavDropdown key={index} eventKey={index} title={item.name} id={"nav-dropdown"+index}>
-                                    {item.dropDown.map((dropDownItem, dropDownIndex)=>
+                    <Navbar.Collapse>
+                        <Nav>
+                            {navigationData.map((item, index) =>
+                                    <NavDropdown key={index} eventKey={index} title={item.name}
+                                                 id={"nav-dropdown"+index}>
+                                        {item.dropDown.map((dropDownItem, dropDownIndex)=>
 
-                                            <MenuItem key={dropDownIndex} eventKey={index+'.'+dropDownIndex}
-                                                      onClick={()=>{this.props.dispatch(routeActions.push(item.path+dropDownItem.path))}}
-                                                >
-                                                {dropDownItem.name}
-                                            </MenuItem>
-                                    )}
-                                </NavDropdown>
-                        )}
-                    </Nav>
-                    <Navbar.Form pullRight>
-                        <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>
-                    </Navbar.Form>
+                                                <MenuItem key={dropDownIndex} eventKey={index+'.'+dropDownIndex}
+                                                          onClick={()=>{this.props.dispatch(routeActions.push(item.path+dropDownItem.path))}}
+                                                    >
+                                                    {dropDownItem.name}
+                                                </MenuItem>
+                                        )}
+                                    </NavDropdown>
+                            )}
+                        </Nav>
+                        <Navbar.Form pullRight>
+                            <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>
+                        </Navbar.Form>
+                    </Navbar.Collapse>
+
                 </Navbar>
                 {marginDiv}
             </div>
@@ -155,10 +201,7 @@ class Navigation extends Component {
     }
 }
 export default Navigation;
-//{titles.map((title, index)=>
-//        <NavItem key={title.title} eventKey={index} onClick={()=> {
-//                                            this.props.dispatch(routeActions.push(title.path))
-//                                        }}>
-//            {title.title}
-//        </NavItem>
-//)}
+/*<Input type="text" placeholder="Email"/>
+ {' '}
+ <Input type="text" placeholder="Password"/>
+ {' '}*/

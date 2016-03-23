@@ -10,11 +10,11 @@ class Breadcrumb extends Component {
     }
 
     render() {
-        var _link="/";
+        var _link = "/";
         var listItems = this.props.folderPath.split('/').map((item, index, arr) => {
             _link += item + '/';
             if (!this.props.activeLastOne || arr.length !== index + 1) {
-                var path=_link;
+                var path = _link;
                 return (<li key={index}>
                     <a onClick={()=>{this.props.dispatch(routeActions.push(path))}}>{item}</a>
                 </li>);
@@ -25,7 +25,7 @@ class Breadcrumb extends Component {
         }, this);
         return (
             <div className="pull-left">
-                    {listItems.length ? <ol className="breadcrumb">
+                {listItems.length ? <ol className="breadcrumb">
                     {listItems}
                 </ol> : null}
             </div>

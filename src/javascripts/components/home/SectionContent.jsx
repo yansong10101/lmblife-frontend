@@ -1,4 +1,5 @@
 import React,{Component,PropTypes} from 'react';
+import {routeActions} from 'react-router-redux';
 class SectionContent extends Component {
     constructor(props, context) {
         super(props, context);
@@ -6,7 +7,13 @@ class SectionContent extends Component {
     }
 
     render() {
+        const button=this.props.button?<a href="javascript:void(0);" onClick={()=>{
+                    this.props.dispatch(routeActions.push(this.props.button.href))
+                    }}
+                                          className="btn btn-outline btn-lg">
+            {this.props.button.text}</a>:"";
         return (
+
 
             <div className="bs-docs-featurette">
                 <div className="container">
@@ -19,9 +26,8 @@ class SectionContent extends Component {
                     </div>
                     <hr className="half-rule"/>
                     <p className="lead">{this.props.content.des2}</p>
-                    <a
-                        href={this.props.button.href} className="btn btn-outline btn-lg">
-                        {this.props.button.text}</a></div>
+                    {button}
+                    </div>
             </div>
         )
     }
@@ -36,7 +42,7 @@ SectionContent.propTypes = {
     button: PropTypes.shape({
         text: PropTypes.string,
         href: PropTypes.string
-    }).isRequired,
+    }),
 };
 export default SectionContent;
 

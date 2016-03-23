@@ -1,4 +1,11 @@
 import React,{Component,PropTypes} from 'react';
+import {
+    Button,
+    Glyphicon,
+    Grid,
+    Row,
+    Col
+} from 'react-bootstrap';
 class EventList extends Component {
     constructor(props, context) {
         super(props, context);
@@ -7,18 +14,16 @@ class EventList extends Component {
 
     render() {
         return (
-            <div className="row">
+            <Row>
                 {this.props.data.map((item,index)=>
-                    <div key={index} className="col-sm-4">
+                    <Col key={index} sm={4}>
+                        <h3>{item.title}</h3>
                         <img src={item.img.src} alt={item.img.alt}
                              className="img-responsive"/>
-
-                        <h3>{item.title}</h3>
-
-                        <p>{item.content}</p>
-                    </div>
+                        <p style={{marginTop:"10px"}}>{item.content}</p>
+                    </Col>
                 )}
-            </div>
+            </Row>
         )
     }
 }

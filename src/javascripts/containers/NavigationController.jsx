@@ -9,7 +9,7 @@ class NavigationController extends Component {
     }
 
     render() {
-        const navFixed=false;
+        const navFixed=true;
         return (
             <Navigation needMargin={navFixed}  wikiRoute={this.props.wikiRoute} dispatch={this.props.dispatch}/>
         );

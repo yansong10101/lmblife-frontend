@@ -13,7 +13,7 @@ class Wiki extends Component {
 
     render() {
         var view;
-        var admin=false;
+        var admin=true;
         switch (this.props.view) {
             case WikiViews.CONTENT:
                 view = <Content folderPath={this.props.folderPath}
@@ -40,7 +40,7 @@ class Wiki extends Component {
                 break;
         }
         return (
-            <div className="container-fluid">
+            <div className="container-fluid" style={{padding:"10px"}}>
                 {view}
             </div>
         );
