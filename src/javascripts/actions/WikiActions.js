@@ -152,4 +152,18 @@ export const uploadImage = (file) => {
         });
     }
 };
+export const editImage = (file,path,name,type) => {
+    return dispatch=> {
+        var route=path.split("/");
+
+        console.log('wiki action: upload image');
+        SDK.uploadImage(file).then((url) => {
+            dispatch({
+                type,
+                cover: Object.assign({}, this.props.cover, object)
+
+            });
+        });
+    }
+};
 

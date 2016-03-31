@@ -21,6 +21,10 @@ class Navigation extends Component {
     }
 
     render() {
+        var showFeature=true;
+        if(window.location.hostname.split(".").shift()==="www"){
+            showFeature=false;
+        }
         const navigationData = [
             {
                 name: "新生指南",
@@ -126,31 +130,15 @@ class Navigation extends Component {
           height: "50px"
         }}></div>
             : null;
-        const titles = [
-            {
-                title: "Home",
-                path: '/'
-            },
-            {
-                title: "Wiki",
-                path: '/' + this.props.wikiRoute
-            },
-            {
-                title: "User",
-                path: '/user'
-            },
-            {
-                title: 'SDK',
-                path: '/sdk'
-            }
-        ];
+        var logosrc = this.props.school.editable ? this.props.school.editableHomepage.logo.src : this.props.school.homepage.logo.src;
         return (
             <div>
                 <Navbar fixedTop={this.props.needMargin}>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="javascript:void(0);" onClick={()=> {
-                                        this.props.dispatch(routeActions.push("/schools"))
+                            <a href="javascript:void(0);"
+                               onClick={()=> {
+                                     window.location.assign("http://www.lvh.me:8080/schools");
                                         }}
                                style={{padding:"5px"}}>
                                 <img
@@ -159,14 +147,14 @@ class Navigation extends Component {
                                     style={{height:"40px"}}/>
                             </a>
                         </Navbar.Brand>
-                        <Navbar.Brand >
+                        <Navbar.Brand className={showFeature?"":"hidden"}>
                             <a href="javascript:void(0);" onClick={()=> {
                                         this.props.dispatch(routeActions.push("/"))
                                         }}
                                style={{padding:"5px"}}
                                 >
                                 <img
-                                    src="http://s3-us-west-2.amazonaws.com/test-2016/test-upload/demo-upload/image_20160322173402659709.png"
+                                    src={logosrc}
                                     alt="cssa UD LOGO"
                                     style={{height:"40px"}}/>
                             </a>
@@ -176,7 +164,8 @@ class Navigation extends Component {
                     <Navbar.Collapse>
                         <Nav>
                             {navigationData.map((item, index) =>
-                                    <NavDropdown key={index} eventKey={index} title={item.name}
+                                    <NavDropdown className={showFeature?"":"hidden"}
+                                                 key={index} eventKey={index} title={item.name}
                                                  id={"nav-dropdown"+index}>
                                         {item.dropDown.map((dropDownItem, dropDownIndex)=>
 

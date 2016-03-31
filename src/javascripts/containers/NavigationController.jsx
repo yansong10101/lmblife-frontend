@@ -9,13 +9,18 @@ class NavigationController extends Component {
     }
 
     render() {
-        const navFixed=true;
+        const navFixed = true;
         return (
-            <Navigation needMargin={navFixed}  wikiRoute={this.props.wikiRoute} dispatch={this.props.dispatch}/>
+            <Navigation needMargin={navFixed}
+                        wikiRoute={this.props.wikiRoute}
+                        school={this.props.school}
+                        dispatch={this.props.dispatch}/>
         );
     }
 }
-const mapStateToProps = state=>({wikiRoute:state.wiki.currentPage?state.wiki.folderPath+state.wiki.currentPage.title:state.wiki.folderPath});
+const mapStateToProps = state=>({
+    wikiRoute: state.wiki.currentPage ? state.wiki.folderPath + state.wiki.currentPage.title : state.wiki.folderPath,
+    school:state.school});
 //const mapDispatchToProps = (dispatch)=>( {dispatch});
 
 export default connect(mapStateToProps)(NavigationController);

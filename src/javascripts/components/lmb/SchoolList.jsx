@@ -10,15 +10,15 @@ import {connect} from 'react-redux';
 const schoolList = [{
     name: "ACPA Foundation",
     img: "https://d1nrm4vx8nf098.cloudfront.net/ryrilzl1uzzngc7_150.jpg",
-    href:"/acpa-foundation"
+    link:"acpa"
 }, {
     name: "American College Personnel Association",
     img: "https://d1nrm4vx8nf098.cloudfront.net/enfliaj080td3j_150.jpg",
-    href:"/american-college-personnel-association"
+    link:"acpa2"
 },{
     name: "University of Dayton",
     img: "https://d1nrm4vx8nf098.cloudfront.net/10w6fdv7gw7mrmi_150.jpg",
-    href:"/"
+    link:"ud"
 }];
 
 
@@ -50,7 +50,9 @@ class SchoolList extends Component {
                     </div>
                     <div className="index-results" type="uniform">
                         {this.state.schoolList.map((school, index)=>
-                            <div key={index} className="result-content" onClick={()=>{this.props.dispatch(routeActions.push(school.href))}}>
+                            <div key={index} className="result-content" onClick={()=>{
+                            localStorage.lmbSchool = school.link;
+                            window.location.assign("http://"+school.link+".lvh.me:8080")}}>
                                 <div className="school-logo"
                                      style={{backgroundImage: "url('"+school.img+"')"}}>
                                 </div>
@@ -60,7 +62,6 @@ class SchoolList extends Component {
                                     </div>
                                 </div>
                             </div>)}
-
 
                     </div>
                 </div>

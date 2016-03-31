@@ -21,6 +21,7 @@ export const initialState = {
         currentView: FOLDER,
         currentPage: null,
         folderItems: [],
-        folderPath: ""
+        folderPath: "",
+        uploadedImageURL:"null"
     }
 };
