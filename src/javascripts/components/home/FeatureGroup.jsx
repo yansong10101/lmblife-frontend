@@ -7,6 +7,8 @@ import {
     Row,
     Col
 } from 'react-bootstrap';
+import {editPageContent} from '../../actions/HomeActions';
+
 const links = ["/freshman_guide/", "/everyday_life/", "/graduation_guide/ssn/"];
 class FeatureGroup extends Component {
     constructor(props, context) {
@@ -22,12 +24,11 @@ class FeatureGroup extends Component {
     }
 
     _editHandler(index, object) {
-        var newdata = this.props.data.slice();
+        var newdata = this.props.featureGroup.data.slice();
         newdata.splice(index, 1, object);
-        this.props.dispatch({
-            type: "FeatureGroup",
-            data: Object.assign({}, this.props.object, {data: newdata})
-        })
+        this.props.dispatch(editPageContent({
+            featureGroup: Object.assign({}, this.props.featureGroup, {data: newdata})
+        }))
 
     }
 
@@ -43,7 +44,7 @@ class FeatureGroup extends Component {
         };
         return (
             <Row className="feature-group">
-                {this.props.data.map((item, index)=>
+                {this.props.featureGroup.data.map((item, index)=>
                         <Col key={index} sm={4}>
                             <div className="feature-image"
                                  style={{backgroundImage:"url("+item.img.src +")"}}>

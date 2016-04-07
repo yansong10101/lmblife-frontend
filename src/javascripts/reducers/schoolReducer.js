@@ -1,9 +1,7 @@
 /**
  * Created by chenghui on 2/19/2016.
  */
-import {UPDATE_LOCATION} from 'react-router-redux';
 import * as ActionTypes from '../constants/ActionTypes.js';
-import * as WikiViews from '../constants/WikiViews.js';
 
 export const school = (state = {
     homepage: {
@@ -50,25 +48,22 @@ export const school = (state = {
         }
 
     },
+    list:[],
     editableHomepage:null,
     editable: false
 }, action)=> {
     switch (action.type) {
-        case "Cover":
-            return Object.assign({}, state, {editableHomepage:Object.assign({},state.editableHomepage,{cover: action.data})});
-        case "Logo":
-            return Object.assign({}, state, {editableHomepage:Object.assign({},state.editableHomepage,{logo: action.data})});
-        case "Notice":
-            return Object.assign({}, state, {editableHomepage:Object.assign({},state.editableHomepage,{notice: action.data})});
-        case "FeatureGroup":
-            return Object.assign({}, state, {editableHomepage:Object.assign({},state.editableHomepage,{featureGroup: action.data})});
-        case "Edit":
+        case ActionTypes.EDIT_HOMEPAGE_CONTENT:
+            return Object.assign({}, state, {editableHomepage:Object.assign({},state.editableHomepage,action.data)});
+        case ActionTypes.EDIT_HOMEPAGE:
             return Object.assign({}, state, {editable:true,editableHomepage:state.homepage});
-        case "Save":
+        case ActionTypes.SAVE_HOMEPAGE:
             return Object.assign({}, state, {editable: false,homepage:state.editableHomepage});
-        case "GetHomepageSettings":
+        case ActionTypes.GET_HOMEPAGE:
             return Object.assign({}, state, {homepage:action.homepage,cached:true});
-        case "Cancel":
+        case ActionTypes.GET_SCHOOL_LIST:
+            return Object.assign({}, state, {list:action.schoolList});
+        case ActionTypes.CANCEL_EDIT_HOMEPAGE:
             return Object.assign({}, state, {editable: false});
         default:
             return state;

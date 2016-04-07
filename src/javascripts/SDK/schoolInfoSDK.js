@@ -1,84 +1,38 @@
 import request from 'superagent';
 import config from './config';
 
-const defaultSchoolInfo = {
-    logo: {
-        src: "http://s3-us-west-2.amazonaws.com/lmb-qa-org-wiki/ud/images/image_20160331022942483316.png",
-        alt: ""
-    },
-    cover: {
-        img: {
-            src: "http://www.gregoryelectric.com/wp-content/uploads/2013/11/University-of-Dayton-Dayton-Ohio-2.jpg",
-            alt: ""
-        },
-        text: "欢迎",
-        linkText: "加入我们"
-    },
-    notice: {
-        title: "重要通知",
-        data: "内容1\n内容2"
-    },
-    featureGroup: {
-        title: "Feature Group",
-        text: "",
-        link: {
-            text: "联系我们",
-            href: "/about/university/"
-        },
-        data: [{
-            title: "新生指南",
-            img: {
-                src: "http://getbootstrap.com/assets/img/sass-less.png",
-                alt: ""
-            },
-            text: "万事开头难，但我遇见了你"
-        }, {
-            title: "日常生活",
-            img: {src: "http://getbootstrap.com/assets/img/devices.png", alt: ""},
-            text: "我的生活，我做主。让无趣的生活沸腾吧"
-        }, {
-            title: "毕业指南",
-            img: {src: "http://getbootstrap.com/assets/img/components.png", alt: ""},
-            text: "毕业≠失业，但亲们，尽早准备，学长们只能帮你到这了"
-        }]
-    }
-
-};
+var defaultSchoolInfo = "U2FsdGVkX1/Uv2IbVGoj6VhvumH0YqpO0MM14wb2JJ348MzwFMBFZ+rmsQM/D6Mn1HaabjASDQAcWrc66F8Pw8v5pPYV+LRZDD4CTzu3s3an5oV+cJ0UPOF2+yBggb2CQqVNhoQYvYtO9zsXqMr/0rVV36I6Mj9a4zQWUjqT0gMsYVKlDXGPgzUw25xvhQ3LioG21V/oIdfprm0P5woNbY9TKy6Tln870jvOqn6VRLLFskOTzF5QClQ9lYd1+ChM3j95OSJY/Qp+MDVbwb9euSL7D9CvGLMuQVHzrLQuCtkTtibBKuZBStAI6dwsI65DMG6L68G7z+AQwBiGF+YFv7CP9FJvO7nDTd/Ts/DjoFEv2MjCVTiuWcDZ+IBNl8VPB8ppuMm/1XrdUVdez1Yb1Ri7KRd2So+DAmIMtit7na400O2YDOiZB8NumzDNVNf+6LumtZmEulptVRom3BZ5VhjyXKcddsK85IP+mgdJT3dpiFR9bAGj3CEVb4O2v0L9rzew8xD4iCwHUiYWuo7cyThkmoRAolA0PtuFsMV5O2XHK/LeGbQGh/4ZL00Rx/lA7iUb1X+usLAVsF46xKXBcCoWKmnoVwlWsPrmLkXqPUngRKf3L7QQ1lBWAz32lofgCCPJMowoRUV/faH3UhOCfhxXOPt+ajB18WDo7WOtRNIaflpbQRDMmQC5L9yEG5sefGwTd8x2MYCrqIX8bliA7v9erR5DPq0j/4f2hg+gnHKOAaNWRR/FF0Tbe2fZ9XN4q25vW55bQc/eg9vXthXb9+Lx4iQZNwr4RTsj2jjtXZru5pXoz6UsedLFSN9UNzzb9gayYc3xziqDcrqFD+M1nDV95FE2Z++wTR9H/D4Sfm+akEn09QNmOAH+S4pjRIfYpOye+SGURosl7ZnyzDCbxl0d0sAJxTXWHn+hwbNABfyzrZ/kjidZWNZ+/F7iqhQoFOBpaECZfeU6aBtRvadEKyBy7DccYgU6cEt/PThfB2hJNaVJkvHObEvrzqlB7K8pmf9EcJkd2ihL+zqZp6izPSjydozm6nDQ+HVVDQOqgrUZi/acMIqVvDbFrEqlpsVEIBhGKw7cROv7zqohg0NoSLZ/DhMYz6pAuJARucst2rLsDqWCAmwihg5cP+r0HhZ3Tei8XgRq2tl3Wmok8e11fJ7OowNpZpiD9pOoQF43hR/l4nFTgruG+j7sieKo4asZdpZIkG9Eoe29b6mA2Uu5jZWT7Qvb0CGRBrAIgHRIkKbmnTFAlSjEmOGfBCDAHd3cFEsd56k5Vm9acv0HBsL0JomB";
 
 
 export default {
     getSchoolList() {
         var promise = new Promise((resolve, reject) => {
             request
-                .get(config.s3Host + "school-list/index.json")
+                .get("http://52.38.143.243:8001/api/universities/")
                 .end((err, res)=> {
                     //console.log(res);
-                    resolve(JSON.parse(res.text));
+                    resolve(res.body);
                 })
         });
         return promise;
     },
-    getSchoolInfo(schoolname) {
+    getSchoolInfo(pk) {
         var promise = new Promise((resolve, reject) => {
             request
-                .get(config.s3Host + "school-list/" + schoolname + ".json")
+                .get("http://52.38.143.243:8001/api/universities/"+pk+"/")
                 .end((err, res)=> {
                     //console.log(res);
-                    resolve(JSON.parse(res.text));
+                    resolve(res.body);
                 })
         });
         return promise;
     },
-    updateSchoolInfo(schoolname, info){
+    updateSchoolInfo(pk, info){
         var promise = new Promise((resolve, reject) => {
             request
-                .post(config.APIHost + 'api/portal/wiki/upload/')
+                .post("http://52.38.143.243:8001/api/universities/update/"+pk+"/")
                 .type('form')
-                .send({
-                    old_path: "school-list/" + schoolname + ".json",
-                    new_path: "school-list/" + schoolname + ".json",
-                    page: JSON.stringify(info)
-                })
+                .send(info)
                 .end((err, res)=> {
                     //console.log(err,res);
                     resolve(info)
@@ -86,57 +40,44 @@ export default {
         });
         return promise;
     },
-    updateSchoolList(newSchoolList){
+
+    addSchoolInfo(info){
         var promise = new Promise((resolve, reject) => {
             request
-                .post(config.APIHost + 'api/portal/wiki/upload/')
+                .post('http://52.38.143.243:8001/api/universities/create/')
                 .type('form')
-                .send({
-                    old_path: "school-list/index.json",
-                    new_path: "school-list/index.json",
-                    page: JSON.stringify(newSchoolList)
-                })
+                .send(info)
                 .end((err, res)=> {
                     //console.log(err,res);
-                    resolve(newSchoolList)
+                    resolve(info)
                 });
         });
         return promise;
     },
-    addSchoolInfo(schoolname){
-        var promise = new Promise((resolve, reject) => {
-            request
-                .post(config.APIHost + 'api/portal/wiki/upload/')
-                .type('form')
-                .send({
-                    old_path: undefined,
-                    new_path: "school-list/" + schoolname + ".json",
-                    page: JSON.stringify(defaultSchoolInfo)
-                })
-                .end((err, res)=> {
-                    //console.log(err,res);
-                    resolve(defaultSchoolInfo)
-                });
-        });
-        return promise;
-    },
-    deleteSchoolInfo(schoolname){
-        var promise = new Promise((resolve, reject) => {
-            request
-                .post(config.APIHost + 'api/portal/keys/delete/')
-                .type('form')
-                .send({
-                    key_name: "school-list/" + schoolname + ".json"
-                })
-                .end((err, res)=> {
-                    resolve();
-                });
-        });
-        return promise;
-    },
+    //deleteSchoolInfo(schoolname){
+    //    var promise = new Promise((resolve, reject) => {
+    //        request
+    //            .post(config.APIHost + 'api/portal/keys/delete/')
+    //            .type('form')
+    //            .send({
+    //                key_name: "school-list/" + schoolname + ".json"
+    //            })
+    //            .end((err, res)=> {
+    //                resolve();
+    //            });
+    //    });
+    //    return promise;
+    //},
     getHomepageSettings(){
         var promise = new Promise((resolve, reject) => {
-            setTimeout(resolve(defaultSchoolInfo), 1000);
+            setTimeout(resolve(defaultSchoolInfo), 600);
+        });
+        return promise;
+    },
+    saveHomepageSettings(pageContent){
+        var promise = new Promise((resolve, reject) => {
+            defaultSchoolInfo=pageContent;
+            setTimeout(resolve(pageContent), 600);
         });
         return promise;
     }

@@ -5,36 +5,38 @@ import {
     Glyphicon
 } from 'react-bootstrap';
 import {routeActions} from 'react-router-redux';
-import {connect} from 'react-redux';
 
 const schoolList = [{
     name: "ACPA Foundation",
     img: "https://d1nrm4vx8nf098.cloudfront.net/ryrilzl1uzzngc7_150.jpg",
-    link:"acpa"
+    link: "acpa"
 }, {
     name: "American College Personnel Association",
     img: "https://d1nrm4vx8nf098.cloudfront.net/enfliaj080td3j_150.jpg",
-    link:"acpa2"
-},{
+    link: "acpa2"
+}, {
     name: "University of Dayton",
     img: "https://d1nrm4vx8nf098.cloudfront.net/10w6fdv7gw7mrmi_150.jpg",
-    link:"ud"
+    link: "ud"
 }];
 
 
 class SchoolList extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {schoolList};
+        this.state = {query: ""};
         this._onChange = this._onChange.bind(this)
 
     }
-    _onChange(e) {
-        var regex = new RegExp(e.target.value, 'i');
-        this.setState({schoolList:schoolList.filter(t=>regex.test(t.name))});
-    }
-    render() {
 
+    _onChange(e) {
+        this.setState({query: e.target.value});
+    }
+
+    render() {
+        var regex = new RegExp(this.state.query, 'i');
+
+        const filteredSchoolList = this.props.schoolList.filter(t=>regex.test(t.display_name));
 
         return (
             <div>
@@ -49,16 +51,15 @@ class SchoolList extends Component {
                         <input type="text" className="form-control" placeholder="搜索学校" onChange={this._onChange}/>
                     </div>
                     <div className="index-results" type="uniform">
-                        {this.state.schoolList.map((school, index)=>
+                        {filteredSchoolList.map((school, index)=>
                             <div key={index} className="result-content" onClick={()=>{
-                            localStorage.lmbSchool = school.link;
-                            window.location.assign("http://"+school.link+".lvh.me:8080")}}>
+                            window.location.assign("http://"+school.slug_name+".lvh.me:8080")}}>
                                 <div className="school-logo"
-                                     style={{backgroundImage: "url('"+school.img+"')"}}>
+                                     style={{backgroundImage: "url(https://d1nrm4vx8nf098.cloudfront.net/10w6fdv7gw7mrmi_150.jpg)"}}>
                                 </div>
                                 <div className="school-info">
                                     <div className="school-name">
-                                        {school.name}
+                                        {school.display_name}
                                     </div>
                                 </div>
                             </div>)}
@@ -69,70 +70,4 @@ class SchoolList extends Component {
         );
     }
 }
-export default connect()(SchoolList);
-//
-//<div className="osw-selector-result osw-selector-result-type-community"
-//     data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$1">
-//    <div className="osw-selector-result-content"
-//         data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$1.0">
-//        <div className="osw-selector-result-image"
-//             style="background-image: url(&quot;https://d1nrm4vx8nf098.cloudfront.net/enfliaj080td3j_150.jpg&quot;);"
-//             data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$1.0.0"></div>
-//        <div className="osw-selector-result-info"
-//             data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$1.0.1">
-//            <div className="osw-selector-result-name"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$1.0.1.0">
-//                American College Personnel Association
-//            </div>
-//            <div className="osw-selector-result-type"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$1.0.1.1">
-//                School
-//            </div>
-//        </div>
-//    </div>
-//</div>
-//<div className="osw-selector-result osw-selector-result-type-community"
-//data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2">
-//    <div className="osw-selector-result-content"
-//         data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0">
-//        <div className="osw-selector-result-image"
-//             data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0.0">
-//            <div className="osw-selector-result-icon"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0.0.0">
-//                <i name="community" className="icon oswi oswi-community"
-//                   data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0.0.0.0"></i>
-//            </div>
-//        </div>
-//        <div className="osw-selector-result-info"
-//             data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0.1">
-//            <div className="osw-selector-result-name"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0.1.0">
-//                Angelina College
-//            </div>
-//            <div className="osw-selector-result-type"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$2.0.1.1">
-//                School
-//            </div>
-//        </div>
-//    </div>
-//    </div>
-//    <div className="osw-selector-result osw-selector-result-type-community"
-//         data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$3">
-//        <div className="osw-selector-result-content"
-//             data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$3.0">
-//            <div className="osw-selector-result-image"
-//                 style="background-image: url(&quot;https://d1nrm4vx8nf098.cloudfront.net/117xpiu9c0ucp7r_150.jpg&quot;);"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$3.0.0"></div>
-//            <div className="osw-selector-result-info"
-//                 data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$3.0.1">
-//                <div className="osw-selector-result-name"
-//                     data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$3.0.1.0">
-//                    Bay Area Student Activities Consortium
-//                </div>
-//                <div className="osw-selector-result-type"
-//                     data-reactid=".0.1.0.0.0.1.$arbitrary_Everything=2school=2none=2name,short_name=2ac.0.0.0.$3.0.1.1">
-//                    School
-//                </div>
-//            </div>
-//        </div>
-//    </div>
+export default SchoolList;

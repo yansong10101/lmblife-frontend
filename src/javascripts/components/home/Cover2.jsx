@@ -5,17 +5,15 @@ import {
     Glyphicon,
 } from 'react-bootstrap';
 import {push} from 'react-router-redux';
-import {apply} from '../../actions/HomeActions';
+import {apply,editPageContent} from '../../actions/HomeActions';
 import {applyPermission,openLogin} from '../../actions/UserActions';
-
-import {uploadImage} from '../../actions/WikiActions';
-import {UPLOAD_IMAGE} from '../../constants/ActionTypes.js';
 
 class Cover extends Component {
     constructor(props, context) {
         super(props, context);
         this.applyClickHandler = this.applyClickHandler.bind(this);
-        this._editHandler = this._editHandler.bind(this);
+        this._editLogoHandler = this._editLogoHandler.bind(this);
+        this._editCoverHandler = this._editCoverHandler.bind(this);
     }
 
     applyClickHandler() {
@@ -30,11 +28,11 @@ class Cover extends Component {
         }
     }
 
-    _editHandler(type, object) {
-        this.props.dispatch({
-            type: type,
-            data: Object.assign({}, this.props.cover, object)
-        })
+    _editLogoHandler(object) {
+        this.props.dispatch(editPageContent({logo:Object.assign({},this.props.logo,object)}))
+    }
+    _editCoverHandler(object) {
+        this.props.dispatch(editPageContent({cover:Object.assign({},this.props.cover,object)}))
     }
 
     render() {
@@ -54,10 +52,10 @@ class Cover extends Component {
             <div className="cover" style={{backgroundImage: "url(" + this.props.cover.img.src + ")"}}>
                 <div className={classSet({"image-editor":true,"hidden":!this.props.editable})}>
                     <Button onClick={(e)=>{
-                                this._editHandler("Cover",{img:{src:this.props.uploadedImageURL,alt:""}})
+                                this._editCoverHandler({img:{src:this.props.uploadedImageURL,alt:""}})
                                }} bsStyle="primary">"Set backImg"</Button>
                     <Button onClick={(e)=>{
-                                this._editHandler("Cover",{img:{src:null,alt:""}})
+                                this._editCoverHandler({img:{src:null,alt:""}})
                                }} bsStyle="primary">"remove backImg"</Button>
                 </div>
                 <div className="container">
@@ -65,11 +63,11 @@ class Cover extends Component {
                         {logo}
                         <div className={classSet({"image-editor":true,"hidden":!this.props.editable})}>
                             <Glyphicon onClick={(e)=>{
-                                                this._editHandler("Logo",{src:this.props.uploadedImageURL})
+                                                this._editLogoHandler({src:this.props.uploadedImageURL})
                                              }}
                                        glyph="edit"/>
                             <Glyphicon onClick={(e)=>{
-                                                this._editHandler("Logo",{src:null})
+                                                this._editLogoHandler({src:null})
                                              }}
                                        glyph="remove"/>
                         </div>

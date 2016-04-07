@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
+import CryptoJS from 'crypto-js';
 import {
     Button
 } from 'react-bootstrap';
@@ -9,6 +10,7 @@ import FeatureGroup from './FeatureGroup.jsx';
 import Footer from './Footer.jsx';
 
 import {uploadImage} from '../../actions/WikiActions';
+import {editPage,savePage,cancelEdit} from './../../actions/HomeActions.js';
 import {UPLOAD_IMAGE} from '../../constants/ActionTypes.js';
 
 const imageSample = {
@@ -39,15 +41,15 @@ class Home extends Component {
     }
 
     _editClickHandler() {
-        this.props.dispatch({type: "Edit"});
+        this.props.dispatch(editPage());
     }
 
     _saveClickHandler() {
-        this.props.dispatch({type: "Save"});
+        this.props.dispatch(savePage(CryptoJS.RC4.encrypt(JSON.stringify(this.props.homepage),"myKey").toString()));
     }
 
     _cancelClickHandler() {
-        this.props.dispatch({type: "Cancel"});
+        this.props.dispatch(cancelEdit());
     }
 
     render() {
@@ -87,7 +89,7 @@ class Home extends Component {
                         uploadedImageURL={this.props.uploadedImageURL}
                     />
 
-                <SectionContent data={notice} type="Notice"
+                <SectionContent data={notice} type="notice"
                                 editable={this.props.editable}
                                 dispatch={this.props.dispatch}>
                     <div className="notice" contentEditable={this.props.editable}
@@ -101,11 +103,10 @@ class Home extends Component {
                     </div>
                 </SectionContent>
 
-                <SectionContent data={featureGroup} type="FeatureGroup"
+                <SectionContent data={featureGroup} type="featureGroup"
                                 editable={this.props.editable}
                                 dispatch={this.props.dispatch}>
-                    <FeatureGroup data={featureGroup.data}
-                                  object={featureGroup}
+                    <FeatureGroup featureGroup={featureGroup}
                                   uploadedImageURL={this.props.uploadedImageURL}
                                   editable={this.props.editable}
                                   dispatch={this.props.dispatch}/>
