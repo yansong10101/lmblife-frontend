@@ -8,6 +8,7 @@ import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
 import HomeController from './containers/HomeController.jsx';
 import UserController from './containers/UserController.jsx';
+import AdminContainer from './containers/AdminContainer.jsx';
 import NavigationController from './containers/NavigationController.jsx';
 import LayoutController from './containers/LayoutController.jsx';
 import SignUp from './components/user/SignUp.jsx';
@@ -40,6 +41,7 @@ class App extends Component {
                           <Route path="apply" component={Apply}/>
                           <Route path="email-confirm" component={EmailConfirm}/>
                         </Route>
+                        <Route path="admin" component={AdminContainer}/>
                         <Route path="**" component={NoMatch}/>
                     </Route>
                 </Router>

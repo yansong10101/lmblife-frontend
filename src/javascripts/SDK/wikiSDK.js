@@ -4,7 +4,7 @@ export default {
     getItems(path) {
         var promise = new Promise((resolve, reject) => {
             request
-              .post(config.APIHost + 'api/portal/keys/get/')
+              .post('/api/portal/keys/get/')
               .type('form')
               .send({
                   key_name: path
@@ -44,7 +44,7 @@ export default {
     savePage(oldPath, newPath, page) {
         var promise = new Promise((resolve, reject) => {
             request
-              .post(config.APIHost + 'api/portal/wiki/upload/')
+              .post('/api/portal/wiki/upload/')
               .type('form')
               .send({
                   old_path: oldPath,
@@ -61,7 +61,7 @@ export default {
     deletePage(path) {
         var promise = new Promise((resolve, reject) => {
             request
-              .post(config.APIHost + 'api/portal/keys/delete/')
+              .post('/api/portal/keys/delete/')
               .type('form')
               .send({
                   key_name: path
@@ -77,7 +77,7 @@ export default {
             var form = new FormData();
             form.append('file', file);
             request
-              .post(config.APIHost + 'api/portal/image/upload/')
+              .post('/api/portal/image/upload/')
               .type('form')
               .send(form)
               .end((err, res)=> {
