@@ -8,12 +8,10 @@ class SDKController extends Component {
         super(props, context);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
-
-    componentDidMount() {
-        this.props.dispatch(getFeatureGroups());
+    static fetchData(dispatch) {
+        dispatch(getFeatureGroups());
     }
-
-    render() {
+   render() {
         return (
             <div>
                 <FeatureGoup featureGroups={this.props.featureGroups} dispatch={this.props.dispatch}/>

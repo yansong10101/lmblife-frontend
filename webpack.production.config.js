@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -11,14 +10,9 @@ module.exports = {
         filename: "main.js",
         path: path.resolve(__dirname, 'dist')
     },
-    devServer: {
-        proxy: {
-            '/api/*': 'http://ec2-52-38-143-243.us-west-2.compute.amazonaws.com:8001'
-        }
-    },
     devtool: "#inline-source-map",
     resolve: {
-        root: ['node_modules']
+        root:['node_modules'],
     },
     module: {
         loaders: [
@@ -36,16 +30,5 @@ module.exports = {
                 loaders: ["style", "css", "sass"]
             }
         ]
-    },
-    plugins: [
-        new CopyWebpackPlugin([
-            // {output}/file.txt
-            {from: '../node_modules/bootstrap/fonts', to: 'fonts'},
-            {from: '../node_modules/bootstrap/dist/css/bootstrap.css'},
-            {from: '../node_modules/tinymce/tinymce.js'},
-            {from: '../node_modules/tinymce/plugins', to: 'plugins'},
-            {from: '../node_modules/tinymce/skins', to: 'skins'},
-            {from: '../node_modules/tinymce/themes', to: 'themes'}
-        ])
-    ]
+    }
 };

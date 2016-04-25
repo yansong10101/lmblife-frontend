@@ -13,22 +13,27 @@ class Wiki extends Component {
 
     render() {
         var view;
+        var admin=false;
         switch (this.props.view) {
             case WikiViews.CONTENT:
-                view = <Content route={this.props.route}
+                view = <Content folderPath={this.props.folderPath}
                                 currentPage={this.props.currentPage}
-                                dispatch={this.props.dispatch}/>;
+                                dispatch={this.props.dispatch}
+                                admin={admin} />;
                 break;
             case WikiViews.EDITOR:
-                view = <Editor route={this.props.route}
+                view = <Editor folderPath={this.props.folderPath}
                                currentPage={this.props.currentPage}
+                               items={this.props.folderItems.map(item=>item.name)}
                                uploadedImageURL={this.props.uploadedImageURL}
-                               dispatch={this.props.dispatch}/>;
+                               dispatch={this.props.dispatch}
+                               admin={admin}/>;
                 break;
             case WikiViews.FOLDER:
-                view = <Folder route={this.props.route}
+                view = <Folder folderPath={this.props.folderPath}
                                items={this.props.folderItems}
-                               dispatch={this.props.dispatch}/>;
+                               dispatch={this.props.dispatch}
+                               admin={admin}/>;
                 break;
             default:
                 view = null;
