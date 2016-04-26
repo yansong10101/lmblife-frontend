@@ -4,7 +4,13 @@ import Editor from './Editor.jsx';
 import Breadcrumb from './Breadcrumb.jsx';
 import {editPage,selectItem,createFolder,createPage} from '../../actions/WikiActions';
 import * as WikiItemTypes from '../../constants/WikiItemTypes.js';
-
+import {
+    Button,
+    Glyphicon,
+    Grid,
+    Row,
+    Col
+} from 'react-bootstrap';
 class Folder extends Component {
     constructor(props, context) {
         super(props, context);
@@ -14,10 +20,6 @@ class Folder extends Component {
         this._createPageClickHandler = this._createPageClickHandler.bind(this);
     }
 
-    //_editClickHandler() {
-    //    this.props.dispatch(editPage());
-    //}
-
     _itemClickHandler(item) {
         this.props.dispatch(selectItem(item));
     }
@@ -25,7 +27,7 @@ class Folder extends Component {
     _createFolderClickHandler() {
         var folderName = prompt('create folder', 'please enter a folder name');
         if (folderName) {
-            this.props.dispatch(createFolder(this.props.route + folderName));
+            this.props.dispatch(createFolder(this.props.folderPath + folderName));
         }
     }
 
@@ -35,40 +37,39 @@ class Folder extends Component {
 
     render() {
         var items = this.props.items.map((item)=> {
-            var icon = (item.type === WikiItemTypes.FOLDER)
-                ? 'glyphicon glyphicon-folder-close'
-                : 'glyphicon glyphicon-file';
+            var icon = item.type === WikiItemTypes.FOLDER ? 'folder-close' : 'file';
             return (
                 <div key={item.path}>
                     <a onClick={()=>this._itemClickHandler(item)}>
-                        <span className={icon}></span>{item.name}</a>
+                        <Glyphicon glyph={icon}/>{item.name}</a>
                 </div>
             );
         });
-        return (
-            <div>
-                <div className="row">
-                    <div className="col-xs-12">
-                        <Breadcrumb route={this.props.route} activeLastOne={false}/>
+        var adminbar = this.props.admin ? (
+            <Col xs={12}>
+                <Breadcrumb folderPath={this.props.folderPath} activeLastOne={true}/>
 
-                        <div key="contentButtons" className="pull-right">
-                            <button className="btn btn-default" onClick={this._createFolderClickHandler}>
-                                <span className="glyphicon glyphicon-book" aria-hidden="true"></span>
-                                &nbsp;Create Folder
-                            </button>
-                            <button className="btn btn-default" onClick={this._createPageClickHandler}>
-                                <span className="glyphicon glyphicon-file" aria-hidden="true"></span>
-                                &nbsp;Add Page
-                            </button>
-                        </div>
-                    </div>
+                <div key="contentButtons" className="pull-right">
+                    <Button onClick={this._createFolderClickHandler}>
+                        <Glyphicon glyph="book"/>&nbsp;Create Folder
+                    </Button>
+                    <Button onClick={this._createPageClickHandler}>
+                        <Glyphicon glyph="file"/>&nbsp;Add Page
+                    </Button>
                 </div>
-                <div className="row">
-                    <div className="col-xs-12">
+            </Col>
+        ) : ""
+
+        return (
+            <Grid>
+                <Row>{adminbar}
+                </Row>
+                <Row>
+                    <Col xs={12}>
                         {items}
-                    </div>
-                </div>
-            </div>
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

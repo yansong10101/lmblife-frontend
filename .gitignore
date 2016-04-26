@@ -1,2 +1,9 @@
 node_modules
 .idea
+bower_components
+
+*.iml
+.DS_Store
+/dist
+/prod
+npm-debug.log

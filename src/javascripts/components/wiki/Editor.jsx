@@ -14,12 +14,12 @@ class Editor extends Component {
         this._oldTitle = undefined;
         this._fileUploadCallback = undefined;
 
-        this._editorChangeHandler=this._editorChangeHandler.bind(this);
-        this._titleChangeHandler=this._titleChangeHandler.bind(this);
-        this._saveClickHandler=this._saveClickHandler.bind(this);
-        this._cancelClickHandler=this._cancelClickHandler.bind(this);
-        this._pickFileClickHandler=this._pickFileClickHandler.bind(this);
-        this._fileInputChangeHandler=this._fileInputChangeHandler.bind(this);
+        this._editorChangeHandler = this._editorChangeHandler.bind(this);
+        this._titleChangeHandler = this._titleChangeHandler.bind(this);
+        this._saveClickHandler = this._saveClickHandler.bind(this);
+        this._cancelClickHandler = this._cancelClickHandler.bind(this);
+        this._pickFileClickHandler = this._pickFileClickHandler.bind(this);
+        this._fileInputChangeHandler = this._fileInputChangeHandler.bind(this);
 
     }
 
@@ -36,58 +36,82 @@ class Editor extends Component {
             this._fileUploadCallback(nextProps.uploadedImageURL);
         }
     }
+
     //private
     _editorChangeHandler(event) {
-        this._editorContent = event.target.getContent();
+        if (event.target.getContent) {
+            this._editorContent = event.target.getContent()
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">");
+        }
+        else {
+            this._editorContent = event.target.value;
+            //.replace(/&lt;/g,"<")
+            //.replace(/&gt;/g,">");
+        }
+        console.log(this._editorContent);
     }
+
     _titleChangeHandler(event) {
         this._title = event.target.value;
     }
+
     _saveClickHandler() {
-        this.props.dispatch(savePage(this.props.route, this._oldTitle, {
-            title: this._title,
-            content: this._editorContent
-        }));
+        if (this._oldTitle !== this._title && this.props.items.indexOf(this._title) !== -1) {
+            alert("test");
+        } else {
+            this.props.dispatch(savePage(this.props.folderPath, this._oldTitle, {
+                title: this._title,
+                content: this._editorContent
+            }));
+        }
     }
+
     _cancelClickHandler() {
         this.props.dispatch(cancelEdit());
     }
-    _pickFileClickHandler(callback, value, mate){
+
+    _pickFileClickHandler(callback, value, mate) {
         var fileInput = ReactDOM.findDOMNode(this.refs.fileInput);
         this._fileUploadCallback = callback;
         fileInput.value = '';
         fileInput.click();
     }
-    _fileInputChangeHandler(event){
+
+    _fileInputChangeHandler(event) {
         var file = event.target.files[0];
         if (file) {
             this.props.dispatch(uploadImage(file));
         }
     }
+
     //react life cycles
     render() {
+        var adminbar = this.props.admin ? (  <div className="col-xs-12">
+                <Breadcrumb folderPath={this.props.folderPath} activeLastOne={true}/>
+
+                <div key="editorButtons" className="pull-right">
+                    <button className="btn btn-default" onClick={this._saveClickHandler}>
+                        <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        &nbsp;Save
+                    </button>
+                    <button className="btn btn-default" onClick={this._cancelClickHandler}>
+                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        &nbsp;Cancel
+                    </button>
+                </div>
+            </div>
+        ) : ""
+
         return (
             <div>
                 <div className="row">
-                    <div className="col-xs-12">
-                        <Breadcrumb route={this.props.route} activeLastOne={true}/>
-
-                        <div key="editorButtons" className="pull-right">
-                            <button className="btn btn-default" onClick={this._saveClickHandler}>
-                                <span className="glyphicon glyphicon-save" aria-hidden="true"></span>
-                                &nbsp;Save
-                            </button>
-                            <button className="btn btn-default" onClick={this._cancelClickHandler}>
-                                <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                &nbsp;Cancel
-                            </button>
-                        </div>
-                    </div>
+                    {adminbar}
                 </div>
                 <form>
                     <Input type="text" label="Title" placeholder="Please input a page tile." defaultValue={this._title}
                            onChange={this._titleChangeHandler}/>
-                    <Input label="Content" wrapperClassName="wrapper">
+                    <Input label="Content" wrapperClassName="wrapper" onChange={this._editorChangeHandler}>
                         <TinyMCE content={this._editorContent} config={{
               plugins: 'autolink link image lists print preview',
               toolbar: 'undo redo | bold italic | image | alignleft aligncenter alignright',
@@ -96,8 +120,8 @@ class Editor extends Component {
               image_prepend_url: "http://www.tinymce.com/images/"
             }} onChange={this._editorChangeHandler}/>
                     </Input>
-                    <input style={{display:'none'}} ref='fileInput' type="file" id="myFile"
-                           onChange={this._fileInputChangeHandler}/>
+                    <input /*style={{display:'none'}} */ ref='fileInput' type="file" id="myFile"
+                                                         onChange={this._fileInputChangeHandler}/>
                 </form>
             </div>
         );

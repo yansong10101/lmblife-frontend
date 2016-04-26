@@ -1,4 +1,4 @@
-import $ from '../../../bower_components/jQuery/dist/jquery.min.js'
+import request from 'superagent';
 export default{
   getFeatureGroups(){
     var promise = new Promise(function(resolve,reject){

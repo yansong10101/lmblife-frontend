@@ -9,16 +9,10 @@ module.exports = {
     ],
     output: {
         filename: "main.js",
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'prod')
     },
-    devServer: {
-        proxy: {
-            '/api/*': 'http://ec2-52-38-143-243.us-west-2.compute.amazonaws.com:8001'
-        }
-    },
-    devtool: "#inline-source-map",
     resolve: {
-        root: ['node_modules']
+        root:['node_modules']
     },
     module: {
         loaders: [
@@ -46,6 +40,9 @@ module.exports = {
             {from: '../node_modules/tinymce/plugins', to: 'plugins'},
             {from: '../node_modules/tinymce/skins', to: 'skins'},
             {from: '../node_modules/tinymce/themes', to: 'themes'}
-        ])
+        ]),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"production"'
+        })
     ]
 };
