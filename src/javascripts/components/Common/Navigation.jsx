@@ -126,7 +126,11 @@ class Navigation extends Component {
           height: "50px"
         }}></div>
             : null;
-        var logosrc = this.props.school.editable ? this.props.school.editableHomepage.logo.src : this.props.school.homepage.logo.src;
+        var logoSrc = this.props.school.editable ? this.props.school.editableHomepage.logo.src : this.props.school.homepage.logo.src;
+        let userButton = <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>;
+        if (this.props.user.token) {
+            userButton = <Button onClick={this.logoutClickHandler} bsStyle="warning">Log out</Button>;
+        }
         return (
             <div>
                 <Navbar fixedTop={this.props.needMargin}>
@@ -150,7 +154,7 @@ class Navigation extends Component {
                                style={{padding:"5px"}}
                                 >
                                 <img
-                                    src={logosrc}
+                                    src={logoSrc}
                                     alt="cssa UD LOGO"
                                     style={{height:"40px"}}/>
                             </a>
@@ -175,7 +179,9 @@ class Navigation extends Component {
                             )}
                         </Nav>
                         <Navbar.Form pullRight>
-                            <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>
+                            {this.props.user.username}
+                            {userButton}
+                            <Button onClick={this.adminClickHandler}>Admin</Button>
                         </Navbar.Form>
                     </Navbar.Collapse>
 
