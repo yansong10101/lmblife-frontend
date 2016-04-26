@@ -2,7 +2,7 @@
  * Created by chenghui on 2/15/2016.
  */
 import React, {Component, PropTypes} from 'react';
-import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+import {Router, Route, IndexRoute, browserHistory,Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
@@ -16,6 +16,7 @@ import Apply from './components/user/Apply.jsx';
 import EmailConfirm from './components/user/EmailConfirm.jsx';
 import NoMatch from './components/NoMatch.jsx';
 import RoutesManager from './containers/RoutesManager.jsx';
+import SchoolListController from './containers/SchoolListController.jsx';
 
 import {checkLogin} from './actions/UserActions';
 class App extends Component {
@@ -35,7 +36,9 @@ class App extends Component {
                         <Route path="freshman_guide/**" component={WikiController}/>
                         <Route path="everyday_life/**" component={WikiController}/>
                         <Route path="graduation_guide/**" component={WikiController}/>
-                        <Route path="sdk" component={SDKController}/>
+                        <Route path="about/**" component={WikiController}/>
+                        <Route path="wiki/**" component={WikiController}/>
+                        <Route path="schools" component={SchoolListController}/>
                         <Route path="user" component={UserController}>
                           <IndexRoute component={SignUp}/>
                           <Route path="apply" component={Apply}/>

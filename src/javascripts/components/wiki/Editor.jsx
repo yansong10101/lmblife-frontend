@@ -39,7 +39,17 @@ class Editor extends Component {
 
     //private
     _editorChangeHandler(event) {
-        this._editorContent = event.target.getContent();
+        if (event.target.getContent) {
+            this._editorContent = event.target.getContent()
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">");
+        }
+        else {
+            this._editorContent = event.target.value;
+            //.replace(/&lt;/g,"<")
+            //.replace(/&gt;/g,">");
+        }
+        console.log(this._editorContent);
     }
 
     _titleChangeHandler(event) {
@@ -47,7 +57,7 @@ class Editor extends Component {
     }
 
     _saveClickHandler() {
-        if (this._oldTitle!==this._title && this.props.items.indexOf(this._title)!==-1) {
+        if (this._oldTitle !== this._title && this.props.items.indexOf(this._title) !== -1) {
             alert("test");
         } else {
             this.props.dispatch(savePage(this.props.folderPath, this._oldTitle, {
@@ -77,7 +87,7 @@ class Editor extends Component {
 
     //react life cycles
     render() {
-        var adminbar=this.props.admin?(  <div className="col-xs-12">
+        var adminbar = this.props.admin ? (  <div className="col-xs-12">
                 <Breadcrumb folderPath={this.props.folderPath} activeLastOne={true}/>
 
                 <div key="editorButtons" className="pull-right">
@@ -91,7 +101,7 @@ class Editor extends Component {
                     </button>
                 </div>
             </div>
-        ):""
+        ) : ""
 
         return (
             <div>
@@ -101,7 +111,7 @@ class Editor extends Component {
                 <form>
                     <Input type="text" label="Title" placeholder="Please input a page tile." defaultValue={this._title}
                            onChange={this._titleChangeHandler}/>
-                    <Input label="Content" wrapperClassName="wrapper">
+                    <Input label="Content" wrapperClassName="wrapper" onChange={this._editorChangeHandler}>
                         <TinyMCE content={this._editorContent} config={{
               plugins: 'autolink link image lists print preview',
               toolbar: 'undo redo | bold italic | image | alignleft aligncenter alignright',
@@ -110,8 +120,8 @@ class Editor extends Component {
               image_prepend_url: "http://www.tinymce.com/images/"
             }} onChange={this._editorChangeHandler}/>
                     </Input>
-                    <input style={{display:'none'}} ref='fileInput' type="file" id="myFile"
-                           onChange={this._fileInputChangeHandler}/>
+                    <input /*style={{display:'none'}} */ ref='fileInput' type="file" id="myFile"
+                                                         onChange={this._fileInputChangeHandler}/>
                 </form>
             </div>
         );

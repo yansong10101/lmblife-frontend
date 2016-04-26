@@ -5,7 +5,7 @@
   "main": "npm start",
   "scripts": {
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --history-api-fallback",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js"
+    "deploy": "set NODE_ENV=production webpack -p --config webpack.production.config.js"
   },
   "author": "ypling",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.6",
     "copy-webpack-plugin": "^1.1.1",
+    "crypto-js": "^3.1.6",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "history": "^1.17.0",

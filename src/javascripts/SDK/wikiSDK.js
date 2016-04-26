@@ -33,11 +33,11 @@ export default {
     getPage(path) {
         var promise = new Promise((resolve, reject) => {
             request
-              .get(config.s3Host + path)
-              .end((err, res)=> {
-                  //console.log(res);
-                  resolve(JSON.parse(res.text));
-              })
+                .get(config.s3Host + path)
+                .end((err, res)=> {
+                    //console.log(res);
+                    resolve(JSON.parse(res.text));
+                })
         });
         return promise;
     },
@@ -76,6 +76,7 @@ export default {
         var promise = new Promise((resolve, reject) => {
             var form = new FormData();
             form.append('file', file);
+            form.append('key_prefix', window.location.hostname.split(".").shift()+"/images/");
             request
               .post('/api/portal/image/upload/')
               .type('form')

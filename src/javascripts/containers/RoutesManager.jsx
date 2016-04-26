@@ -11,7 +11,9 @@ class RoutesManager extends Component {
     render() {
         let shouldUpdate = true;
         if (this.props.children.props.route.component.fetchData && this.oldkey !== this.props.location.key) {
-            this.props.children.props.route.component.fetchData(this.props.dispatch, this.props.location.pathname.slice(1));
+            var path=this.props.location.pathname.slice(1);
+            path=path.replace("wiki/","");
+            this.props.children.props.route.component.fetchData(this.props.dispatch, path);
             shouldUpdate = false;
         }
         this.oldkey = this.props.location.key;

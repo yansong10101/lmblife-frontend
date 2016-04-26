@@ -81,7 +81,7 @@ export const init = (path = ""/*,newlocation,oldlocation=newlocation*/)=> {
                 dispatch({
                     type: ActionTypes.INITWIKI,
                     view:WikiViews.CONTENT,
-                    items:null,
+                    items:[],
                     page,
                     path:route.join("")
                 });
@@ -148,6 +148,20 @@ export const uploadImage = (file) => {
             dispatch({
                 type: ActionTypes.UPLOAD_IMAGE,
                 url
+            });
+        });
+    }
+};
+export const editImage = (file,path,name,type) => {
+    return dispatch=> {
+        var route=path.split("/");
+
+        console.log('wiki action: upload image');
+        SDK.uploadImage(file).then((url) => {
+            dispatch({
+                type,
+                cover: Object.assign({}, this.props.cover, object)
+
             });
         });
     }
