@@ -9,7 +9,7 @@ class ContainerWrapper extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         {this.props.children}
       </div>
     );

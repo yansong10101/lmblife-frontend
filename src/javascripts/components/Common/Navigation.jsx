@@ -1,6 +1,6 @@
-import React ,{Component}from 'react';
+import React ,{Component, PropTypes}from 'react';
 import {routeActions} from 'react-router-redux';
-import {openLogin} from '../../actions/UserActions';
+import {openLogin,logout} from '../../actions/UserActions';
 import {
     Button,
     Navbar,
@@ -14,17 +14,26 @@ class Navigation extends Component {
     constructor(props, context) {
         super(props, context);
         this.loginClickHandler = this.loginClickHandler.bind(this);
+        this.logoutClickHandler = this.logoutClickHandler.bind(this);
+        this.adminClickHandler = this.adminClickHandler.bind(this);
     }
 
     loginClickHandler() {
         this.props.dispatch(openLogin());
     }
 
+    logoutClickHandler() {
+        this.props.dispatch(logout(this.props.user.token))
+    }
+
+    adminClickHandler(){
+        this.props.dispatch(routeActions.push('/admin'));
+    }
     render() {
-        var showFeature=true;
-        if(window.location.hostname.split(".").shift()==="www"){
-            showFeature=false;
-        }
+      var showFeature=true;
+      if(window.location.hostname.split(".").shift()==="www"){
+        showFeature=false;
+      }
         const navigationData = [
             {
                 name: "新生指南",
@@ -36,64 +45,51 @@ class Navigation extends Component {
                     }, {
                         name: '专业介绍',
                         path: "academics/"
-
                     }, {
                         name: '学费&生活费',
                         path: "cost/"
-
                     }, {
                         name: '周边环境',
                         path: "surroundings/"
-
                     }, {
                         name: '就业状况',
                         path: "employment_status/"
-
                     }, {
                         name: '接机帮',
                         path: "airport_pickup/"
-
                     }
                 ]
             }, {
                 name: '日常生活',
                 path: "/everyday_life/",
-
                 dropDown: [
                     {
                         name: '学生会通知',
                         path: "student_union_notices/",
-
                     }, {
                         name: '近期活动',
                         path: "recent_activities/",
-
                     }
                 ]
             }, {
                 name: '毕业指南',
                 path: "/graduation_guide/",
-
                 dropDown: [
                     {
                         name: 'SSN',
-                        path: "ssn/",
-
+                        path: "ssn/"
                     }, {
                         name: 'CPT',
-                        path: "cpt/",
-
+                        path: "cpt/"
                     }, {
                         name: 'OPT',
-                        path: "opt/",
-
+                        path: "opt/"
                     }, {
                         name: 'H1B',
-                        path: "h1b/",
-
+                        path: "h1b/"
                     }, {
                         name: 'Green Card',
-                        path: "green_card/",
+                        path: "green_card/"
 
                     }, {
                         name: 'Job Fair',
@@ -189,8 +185,7 @@ class Navigation extends Component {
         );
     }
 }
+Navigation.propTypes = {
+    user: PropTypes.object
+};
 export default Navigation;
-/*<Input type="text" placeholder="Email"/>
- {' '}
- <Input type="text" placeholder="Password"/>
- {' '}*/
