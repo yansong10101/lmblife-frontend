@@ -1,10 +1,11 @@
 {
-  "name": "redux-template",
+  "name": "lmblife-frontend",
   "version": "1.0.0",
-  "description": "An react redux with webpack hot load template project.",
+  "description": "LMB client web app",
   "main": "npm start",
   "scripts": {
-    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --history-api-fallback"
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --history-api-fallback",
+    "deploy": "set NODE_ENV=production webpack -p --config webpack.production.config.js"
   },
   "author": "ypling",
   "license": "ISC",
@@ -15,8 +16,10 @@
     "babel-plugin-react-transform": "^2.0.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
-    "bootstrap": "^4.0.0-alpha.2",
+    "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.6",
+    "copy-webpack-plugin": "^1.1.1",
+    "crypto-js": "^3.1.6",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "history": "^1.17.0",
@@ -25,6 +28,7 @@
     "react": "^0.14.7",
     "react-bootstrap": "^0.28.1",
     "react-dom": "^0.14.7",
+    "react-mixin": "^2.0.2",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0-rc6",
     "react-router-redux": "^3.0.0",
@@ -35,6 +39,7 @@
     "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
+    "superagent": "^1.8.0-beta.2",
     "tinymce": "^4.3.2",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13"
