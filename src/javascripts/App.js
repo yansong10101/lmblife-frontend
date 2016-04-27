@@ -4,24 +4,30 @@
 import React, {Component, PropTypes} from 'react';
 import {Router, Route, IndexRoute,IndexRedirect, browserHistory,Redirect} from 'react-router';
 import {connect} from 'react-redux';
-
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
 import HomeController from './containers/HomeController.jsx';
 import UserController from './containers/UserController.jsx';
+import AdminContainer from './containers/AdminContainer.jsx';
 import NavigationController from './containers/NavigationController.jsx';
 import LayoutController from './containers/LayoutController.jsx';
+import SignUp from './components/user/SignUp.jsx';
+import Apply from './components/user/Apply.jsx';
+import EmailConfirm from './components/user/EmailConfirm.jsx';
 import NoMatch from './components/NoMatch.jsx';
 import RoutesManager from './containers/RoutesManager.jsx';
 import SchoolListController from './containers/SchoolListController.jsx';
 import Motions from './components/motion.eg/Motions.jsx';
 
+import {checkLogin} from './actions/UserActions';
 class App extends Component {
     constructor(props, context) {
         super(props, context);
         this._getHomeComponent=this._getHomeComponent.bind(this)
     }
-
+    componentDidMount(){
+        this.props.dispatch(checkLogin());
+    }
     _getHomeComponent(location, cb) {
         if (/^www\./i.test(window.location.hostname)) {
             SchoolListController.fetchData(this.props.dispatch);
@@ -30,9 +36,7 @@ class App extends Component {
             cb(null, HomeController)
         }
     }
-
     render() {
-
         return (
             <div>
                 <NavigationController />
@@ -46,9 +50,13 @@ class App extends Component {
                         <Route path="about/**" component={WikiController}/>
                         <Route path="wiki/**" component={WikiController}/>
                         <Route path="sdk" component={SDKController}/>
-                        <Route path="user" component={UserController}/>
-                        <Route path="motions" component={Motions}/>
-                        <Redirect from="**" to="/"/>
+                        <Route path="user" component={UserController}>
+                          <IndexRoute component={SignUp}/>
+                          <Route path="apply" component={Apply}/>
+                          <Route path="email-confirm" component={EmailConfirm}/>
+                        </Route>
+                        <Route path="admin" component={AdminContainer}/>
+                        <Route path="**" component={NoMatch}/>
                     </Route>
                 </Router>
                 <LayoutController />
@@ -57,4 +65,3 @@ class App extends Component {
     }
 }
 export default connect()(App);
-//<Route path="/*" component={NoMatch}/>
