@@ -2,7 +2,8 @@
  * Created by chenghui on 2/15/2016.
  */
 import React, {Component, PropTypes} from 'react';
-import {Router, Route, IndexRoute, browserHistory,Redirect} from 'react-router';
+import {Router, Route, IndexRoute,IndexRedirect, browserHistory,Redirect} from 'react-router';
+import {connect} from 'react-redux';
 
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
@@ -13,10 +14,21 @@ import LayoutController from './containers/LayoutController.jsx';
 import NoMatch from './components/NoMatch.jsx';
 import RoutesManager from './containers/RoutesManager.jsx';
 import SchoolListController from './containers/SchoolListController.jsx';
+import Motions from './components/motion.eg/Motions.jsx';
 
 class App extends Component {
     constructor(props, context) {
         super(props, context);
+        this._getHomeComponent=this._getHomeComponent.bind(this)
+    }
+
+    _getHomeComponent(location, cb) {
+        if (/^www\./i.test(window.location.hostname)) {
+            SchoolListController.fetchData(this.props.dispatch);
+            cb(null, SchoolListController)
+        } else {
+            cb(null, HomeController)
+        }
     }
 
     render() {
@@ -26,7 +38,8 @@ class App extends Component {
                 <NavigationController />
                 <Router history={browserHistory}>
                     <Route path="/" component={RoutesManager}>
-                        <IndexRoute component={HomeController}/>
+                        <IndexRedirect to="/home"/>
+                        <Route path="home" getComponent={this._getHomeComponent}/>
                         <Route path="freshman_guide/**" component={WikiController}/>
                         <Route path="everyday_life/**" component={WikiController}/>
                         <Route path="graduation_guide/**" component={WikiController}/>
@@ -34,8 +47,8 @@ class App extends Component {
                         <Route path="wiki/**" component={WikiController}/>
                         <Route path="sdk" component={SDKController}/>
                         <Route path="user" component={UserController}/>
-                        <Route path="schools" component={SchoolListController}/>
-                        <Route path="**" component={NoMatch}/>
+                        <Route path="motions" component={Motions}/>
+                        <Redirect from="**" to="/"/>
                     </Route>
                 </Router>
                 <LayoutController />
@@ -43,5 +56,5 @@ class App extends Component {
         );
     }
 }
-export default App;
+export default connect()(App);
 //<Route path="/*" component={NoMatch}/>

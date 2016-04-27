@@ -10,17 +10,21 @@ class HomeController extends Component {
     }
 
     render() {
+        var home;
         if (!this.props.school.cached) {
-            this.props.dispatch(getHomepageSettings());
+        }else{
+            home=<Home user={this.props.user}
+                       editable={this.props.school.editable}
+                       homepage={this.props.school.editable?this.props.school.editableHomepage:this.props.school.homepage}
+                       dispatch={this.props.dispatch}
+                       uploadedImageURL={this.props.uploadedImageURL}
+                       admin={true}
+                />
         }
         return (
-            <Home user={this.props.user}
-                  editable={this.props.school.editable}
-                  homepage={this.props.school.editable?this.props.school.editableHomepage:this.props.school.homepage}
-                  dispatch={this.props.dispatch}
-                  uploadedImageURL={this.props.uploadedImageURL}
-                  admin={true}
-                />
+                <div>
+                    {home}
+                </div>
         );
     }
 }

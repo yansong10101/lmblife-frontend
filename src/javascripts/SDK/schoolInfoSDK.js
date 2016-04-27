@@ -70,14 +70,14 @@ export default {
     //},
     getHomepageSettings(){
         var promise = new Promise((resolve, reject) => {
-            setTimeout(resolve(defaultSchoolInfo), 600);
+            setTimeout(function(){resolve(defaultSchoolInfo)}, 600);
         });
         return promise;
     },
     saveHomepageSettings(pageContent){
         var promise = new Promise((resolve, reject) => {
             defaultSchoolInfo=pageContent;
-            setTimeout(resolve(pageContent), 600);
+            setTimeout(function(){resolve(pageContent)}, 600);
         });
         return promise;
     }

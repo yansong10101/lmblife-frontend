@@ -138,7 +138,7 @@ class Navigation extends Component {
                         <Navbar.Brand>
                             <a href="javascript:void(0);"
                                onClick={()=> {
-                                     window.location.assign("http://www.lvh.me:8080/schools");
+                                     window.location.assign("http://www.lvh.me:8080/");
                                         }}
                                style={{padding:"5px"}}>
                                 <img
