@@ -17,7 +17,7 @@ export function signup(username, password, confirmPassword) {
                 }
             });
     });
-};
+}
 
 export function login(username, password) {
     return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ export function login(username, password) {
                 }
             });
     });
-};
+}
 
 export function logout(token) {
     return new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ export function logout(token) {
                 }
             });
     });
-};
+}
 
 export function getUserInfo(token) {
     return new Promise((resolve, reject) => {
@@ -63,7 +63,7 @@ export function getUserInfo(token) {
                 resolve(res.body.data);
             });
     });
-};
+}
 
 export function emailVerification(token) {
     return new Promise((resolve, reject)=> {
@@ -75,7 +75,7 @@ export function emailVerification(token) {
                 resolve(res.body.is_verified);
             });
     });
-};
+}
 
 export function applyPermission(token, university, customer_comment) {
     return new Promise((resolve, reject)=> {
