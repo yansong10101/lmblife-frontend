@@ -2,7 +2,7 @@
  * Created by chenghui on 2/15/2016.
  */
 import React, {Component, PropTypes} from 'react';
-import {Router, Route, IndexRoute,IndexRedirect, browserHistory,Redirect} from 'react-router';
+import {Router, Route, IndexRoute, browserHistory,Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
@@ -49,7 +49,7 @@ class App extends Component {
                         <Route path="graduation_guide/**" component={WikiController}/>
                         <Route path="about/**" component={WikiController}/>
                         <Route path="wiki/**" component={WikiController}/>
-                        <Route path="sdk" component={SDKController}/>
+                        <Route path="schools" component={SchoolListController}/>
                         <Route path="user" component={UserController}>
                           <IndexRoute component={SignUp}/>
                           <Route path="apply" component={Apply}/>
