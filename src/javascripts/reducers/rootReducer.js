@@ -13,6 +13,5 @@ const rootReducer = combineReducers({
     school,
     wiki,
     admin
->>>>>>> Temporary merge branch 2
 });
 export default rootReducer;

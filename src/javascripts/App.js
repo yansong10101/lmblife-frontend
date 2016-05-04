@@ -4,6 +4,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Router, Route, IndexRoute, browserHistory,Redirect,IndexRedirect} from 'react-router';
 import {connect} from 'react-redux';
+import {registerInitAction, deregisterInitAction} from './containers/TransitionManager.jsx';
+import {init} from './actions/WikiActions';
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
 import HomeController from './containers/HomeController.jsx';
@@ -15,26 +17,20 @@ import SignUp from './components/user/SignUp.jsx';
 import Apply from './components/user/Apply.jsx';
 import EmailConfirm from './components/user/EmailConfirm.jsx';
 import NoMatch from './components/NoMatch.jsx';
-import RoutesManager from './containers/RoutesManager.jsx';
+import TransitionManager from './containers/TransitionManager.jsx';
 import SchoolListController from './containers/SchoolListController.jsx';
-import Motions from './components/motion.eg/Motions.jsx';
 
 import {checkLogin} from './actions/UserActions';
 import {getHomepageSettings} from './actions/HomeActions';
 
 class App extends Component {
     constructor(props, context) {
-<<<<<<< Updated upstream
-        super(props, context);
-        this._getHomeComponent=this._getHomeComponent.bind(this)
-=======
         super(props, context); 
         this._getHomeComponent=this._getHomeComponent.bind(this);
         registerInitAction(init.bind(this,"/freshman_guide/"),"/freshman_guide/");
->>>>>>> Stashed changes
     }
     componentDidMount(){
-        this.props.dispatch(checkLogin());
+      this.props.dispatch(checkLogin());
     }
     _getHomeComponent(location, cb) {
         if (/^www\./i.test(window.location.hostname)) {
@@ -58,11 +54,7 @@ class App extends Component {
             <div>
                 <NavigationController />
                 <Router history={browserHistory}>
-<<<<<<< Updated upstream
-                    <Route path="/" component={RoutesManager}>
-=======
                     <Route path="/" component={TransitionManager}>
->>>>>>> Stashed changes
                         <IndexRedirect to="/home"/>
                         <Route path="home" getComponent={this._getHomeComponent}/>
                         <Route path="freshman_guide/**" component={WikiController}/>
