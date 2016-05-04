@@ -8,7 +8,7 @@ export default {
     getSchoolList() {
         var promise = new Promise((resolve, reject) => {
             request
-                .get("http://52.38.143.243:8001/api/universities/")
+                .get("/api/universities/list/")
                 .end((err, res)=> {
                     //console.log(res);
                     resolve(res.body);
@@ -19,7 +19,7 @@ export default {
     getSchoolInfo(pk) {
         var promise = new Promise((resolve, reject) => {
             request
-                .get("http://52.38.143.243:8001/api/universities/"+pk+"/")
+                .get("/api/universities/"+pk+"/")
                 .end((err, res)=> {
                     //console.log(res);
                     resolve(res.body);
@@ -30,7 +30,7 @@ export default {
     updateSchoolInfo(pk, info){
         var promise = new Promise((resolve, reject) => {
             request
-                .post("http://52.38.143.243:8001/api/universities/update/"+pk+"/")
+                .post("/api/universities/update/"+pk+"/")
                 .type('form')
                 .send(info)
                 .end((err, res)=> {
@@ -44,7 +44,7 @@ export default {
     addSchoolInfo(info){
         var promise = new Promise((resolve, reject) => {
             request
-                .post('http://52.38.143.243:8001/api/universities/create/')
+                .post('/api/universities/create/')
                 .type('form')
                 .send(info)
                 .end((err, res)=> {

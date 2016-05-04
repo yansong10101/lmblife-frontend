@@ -2,7 +2,7 @@
  * Created by chenghui on 2/15/2016.
  */
 import React, {Component, PropTypes} from 'react';
-import {Router, Route, IndexRoute, browserHistory,Redirect} from 'react-router';
+import {Router, Route, IndexRoute, browserHistory,Redirect,IndexRedirect} from 'react-router';
 import {connect} from 'react-redux';
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
@@ -20,10 +20,18 @@ import SchoolListController from './containers/SchoolListController.jsx';
 import Motions from './components/motion.eg/Motions.jsx';
 
 import {checkLogin} from './actions/UserActions';
+import {getHomepageSettings} from './actions/HomeActions';
+
 class App extends Component {
     constructor(props, context) {
+<<<<<<< Updated upstream
         super(props, context);
         this._getHomeComponent=this._getHomeComponent.bind(this)
+=======
+        super(props, context); 
+        this._getHomeComponent=this._getHomeComponent.bind(this);
+        registerInitAction(init.bind(this,"/freshman_guide/"),"/freshman_guide/");
+>>>>>>> Stashed changes
     }
     componentDidMount(){
         this.props.dispatch(checkLogin());
@@ -36,12 +44,25 @@ class App extends Component {
             cb(null, HomeController)
         }
     }
+    _getHomeComponent(location, cb) {
+        if (/^www\./i.test(window.location.hostname)) {
+            SchoolListController.fetchData(this.props.dispatch);
+            cb(null, SchoolListController)
+        } else {
+            if(!this.props.school.cached)this.props.dispatch(getHomepageSettings());
+            cb(null, HomeController)
+        }
+    }
     render() {
         return (
             <div>
                 <NavigationController />
                 <Router history={browserHistory}>
+<<<<<<< Updated upstream
                     <Route path="/" component={RoutesManager}>
+=======
+                    <Route path="/" component={TransitionManager}>
+>>>>>>> Stashed changes
                         <IndexRedirect to="/home"/>
                         <Route path="home" getComponent={this._getHomeComponent}/>
                         <Route path="freshman_guide/**" component={WikiController}/>
@@ -64,4 +85,9 @@ class App extends Component {
         );
     }
 }
-export default connect()(App);
+const mapStateToProps = state=> {
+    return {
+        school: state.school
+    }
+};
+export default connect(mapStateToProps)(App);
