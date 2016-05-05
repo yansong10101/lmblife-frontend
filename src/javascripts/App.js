@@ -4,6 +4,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Router, Route, IndexRoute, browserHistory,Redirect} from 'react-router';
 import {connect} from 'react-redux';
+import {registerInitAction, deregisterInitAction} from './containers/TransitionManager.jsx';
+import {init} from './actions/WikiActions';
 import WikiController from './containers/WikiController.jsx';
 import SDKController from './containers/SDKController.jsx';
 import HomeController from './containers/HomeController.jsx';
@@ -15,13 +17,14 @@ import SignUp from './components/user/SignUp.jsx';
 import Apply from './components/user/Apply.jsx';
 import EmailConfirm from './components/user/EmailConfirm.jsx';
 import NoMatch from './components/NoMatch.jsx';
-import RoutesManager from './containers/RoutesManager.jsx';
+import TransitionManager from './containers/TransitionManager.jsx';
 import SchoolListController from './containers/SchoolListController.jsx';
 
 import {checkLogin} from './actions/UserActions';
 class App extends Component {
     constructor(props, context) {
         super(props, context);
+        registerInitAction("/freshman_guide",init.bind(this,"/freshman_guide"));
     }
     componentDidMount(){
       this.props.dispatch(checkLogin());
@@ -31,7 +34,7 @@ class App extends Component {
             <div>
                 <NavigationController />
                 <Router history={browserHistory}>
-                    <Route path="/" component={RoutesManager}>
+                    <Route path="/" component={TransitionManager}>
                         <IndexRoute component={HomeController}/>
                         <Route path="freshman_guide/**" component={WikiController}/>
                         <Route path="everyday_life/**" component={WikiController}/>
