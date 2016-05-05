@@ -1,5 +1,6 @@
 import React,{Component, PropTypes} from 'react';
 import CustomerTable from './CustomerTable.jsx';
+import * as actions from '../../actions/AdminActions';
 
 class Admin extends Component {
     constructor(props, context) {
