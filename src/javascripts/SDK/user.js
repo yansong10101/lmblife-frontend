@@ -1,5 +1,6 @@
 import request from 'superagent';
 import config from './config';
+import {setUserToken , token} from './utils/userToken';
 
 export function signup(username, password, confirmPassword) {
     return new Promise((resolve, reject) => {
@@ -17,7 +18,7 @@ export function signup(username, password, confirmPassword) {
                 }
             });
     });
-};
+}
 
 export function login(username, password) {
     return new Promise((resolve, reject) => {
@@ -30,13 +31,17 @@ export function login(username, password) {
             })
             .end((err, res) => {
                 if (res.body.result === 'success') {
-                    resolve(res.body.data);
+                    let data = res.body.data;
+                    if(data.token){
+                        setUserToken(data.token);
+                    }
+                    resolve(data);
                 }
             });
     });
-};
+}
 
-export function logout(token) {
+export function logout() {
     return new Promise((resolve, reject) => {
         request
             .post('/api/portal/user/logout/')
@@ -50,9 +55,9 @@ export function logout(token) {
                 }
             });
     });
-};
+}
 
-export function getUserInfo(token) {
+export function getUserInfo() {
     return new Promise((resolve, reject) => {
         request
             .get('/api/portal/refresh-cache/user-cache/')
@@ -63,9 +68,9 @@ export function getUserInfo(token) {
                 resolve(res.body.data);
             });
     });
-};
+}
 
-export function emailVerification(token) {
+export function emailVerification() {
     return new Promise((resolve, reject)=> {
         request.get('/api/portal/email-token-verification/')
             .query({
@@ -75,9 +80,9 @@ export function emailVerification(token) {
                 resolve(res.body.is_verified);
             });
     });
-};
+}
 
-export function applyPermission(token, university, customer_comment) {
+export function applyPermission(university, customer_comment) {
     return new Promise((resolve, reject)=> {
         request.post('/api/management/customer-permission/apply/')
             .send({
@@ -86,7 +91,7 @@ export function applyPermission(token, university, customer_comment) {
                 customer_comment
             })
             .end((err, res) => {
-
+                resolve(res.body);
             });
     })
 }

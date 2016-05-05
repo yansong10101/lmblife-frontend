@@ -3,7 +3,7 @@ import * as ActionTypes from '../constants/ActionTypes.js';
 import * as WikiItemTypes from '../constants/WikiItemTypes.js';
 import * as WikiViews from './../constants/WikiViews.js';
 import api from '../API/mock/wikiAPI';
-import SDK from '../SDK/wikiSDK';
+import * as SDK from '../SDK/wiki';
 /* eslint-disable no-console */
 
 //Action describe a user's action, are not setters. (e.g. select-page not set-page-id).

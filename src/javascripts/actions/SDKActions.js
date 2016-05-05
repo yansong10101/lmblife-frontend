@@ -1,5 +1,5 @@
 import {GET_FEATURE_GROUPS} from '../constants/ActionTypes.js';
-import SDK from '../SDK/adminSDK';
+import * as SDK from '../SDK/admin';
 
 /* eslint-disable no-console */
 //Action describe a user's action, are not setters. (e.g. select-page not set-page-id).

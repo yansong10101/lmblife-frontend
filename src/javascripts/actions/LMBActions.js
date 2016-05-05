@@ -1,5 +1,5 @@
 import * as ActionTypes from './../constants/ActionTypes.js';
-import SDK from './../SDK/schoolInfoSDK.js';
+import * as SDK from './../SDK/schoolInfo.js';
 //import {push} from 'react-router-redux';
 
 export const getSchoolList = () => {

@@ -1,6 +1,6 @@
 import * as actionTypes from '../constants/ActionTypes';
 import {push} from 'react-router-redux';
-import * as sdk from '../SDK/userSDK';
+import * as sdk from '../SDK/user';
 
 /* eslint-disable no-console */
 //Action describe a user's action, are not setters. (e.g. select-page not set-page-id).
