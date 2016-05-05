@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title></title>
-    <script src="/node_modules/tinymce/tinymce.min.js"></script>
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css"/>
-</head>
-<body>
-<div id="main"></div>
-<script type="text/javascript" src="/main.js" charset="UTF-8"></script>
-<script>
-    window.onmessage = function (e) {
-      if(e.origin!=="http://www.lvh.me:8080") return;
-        var msg = e.data;
-        if (msg.action && msg.action === "store") {
-            localStorage[msg.key] =JSON.stringify(msg.data);
-            parent.postMessage({action:"iframe",data:"stored"}, "*")
-        }
-    };
-</script>
-</body>
+    <script src="/tinymce.js"></script>
+    <link rel="stylesheet" href="/bootstrap.css"/>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script type="text/javascript"  src="/main.js" charset="UTF-8"></script>
+  </body>
 </html>
