@@ -19,12 +19,21 @@ class TransitionManager extends Component {
             key = this.props.routing.location.key;
         }
         if (pathname && key && pathname !== this.oldPath || key !== this.oldKey) {
-            if (_registeredInitActions[pathname]) {
-                shouldChildrenUpdate = false;
-                this.props.dispatch(_registeredInitActions[pathname]());
-            } else {
-                shouldChildrenUpdate = true;
-            }
+            var patt;
+            Object.keys(_registeredInitActions).every((e, i)=> {
+                console.log(e);
+                patt = new RegExp(e, "g");
+                if (patt.test(pathname)) {
+                    shouldChildrenUpdate = false;
+                    this.props.dispatch(_registeredInitActions[e](pathname.substr(6)));
+                    return false;
+                } else {
+                    shouldChildrenUpdate = true;
+                    return true;
+                }
+
+            });
+
             this.oldPath = pathname;
             this.oldKey = key;
         }
@@ -55,15 +64,19 @@ export default connect(state=>state)(TransitionManager);
 
 
 export function registerInitAction(action, path) {
-    //path = path.replace(/\/$/, "");
-    if (_registeredInitActions[path] === undefined) {
-        _registeredInitActions[path] = action;
+    var pstr = path.replace(/\*\*/g, ".+");
+    pstr = pstr.replace(/\/\*/g, "[^\/]+");
+    pstr = pstr.replace(/\.\*/g, "[^\/]+");
+    if (_registeredInitActions[pstr] === undefined) {
+        _registeredInitActions[pstr] = action;
     } else {
         console.error("path: " + '\"' + path + '\" already registered.')
     }
 }
 
 export function deregisterInitAction(path) {
-    path = path.replace(/\/$/, "");
-    _registeredInitActions[path] = undefined;
+    var pstr = path.replace(/\*\*/g, ".+");
+    pstr = pstr.replace(/\/\*/g, "[^\/]+");
+    pstr = pstr.replace(/\.\*/g, "[^\/]+");
+    _registeredInitActions[pstr] = undefined;
 }

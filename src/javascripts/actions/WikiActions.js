@@ -69,10 +69,6 @@ export const init = (path = ""/*,newlocation,oldlocation=newlocation*/)=> {
                     page:null,
                     path
                 });
-                //dispatch({
-                //    type:"@@router/UPDATE_LOCATION",
-                //    payload:Object.assign(oldlocation,{action:"REPLACE"})
-                //})
             });
         }else{
             console.log('get folderItems&pageContent');
@@ -107,16 +103,9 @@ export const getFolderItems = (path = "")=> {
 export const selectItem = (item)=> {
     return dispatch=> {
         if (item.type === WikiItemTypes.FOLDER) {
-            dispatch(routeActions.push("/"+item.path))
+            dispatch(routeActions.push("/wiki/"+item.path))
         } else {
-            //console.log('wiki action: select item, page');
-            //SDK.getPage(item.path).then(page => {
-            //    dispatch({
-            //        type: ActionTypes.SELECT_PAGE,
-            //        page
-            //    });
-            //});
-            dispatch(routeActions.push("/" + item.path.slice(0,-5)));
+            dispatch(routeActions.push("/wiki/" + item.path.slice(0,-5)));
 
         }
     };
@@ -152,18 +141,5 @@ export const uploadImage = (file) => {
         });
     }
 };
-export const editImage = (file,path,name,type) => {
-    return dispatch=> {
-        var route=path.split("/");
 
-        console.log('wiki action: upload image');
-        SDK.uploadImage(file).then((url) => {
-            dispatch({
-                type,
-                cover: Object.assign({}, this.props.cover, object)
-
-            });
-        });
-    }
-};
 

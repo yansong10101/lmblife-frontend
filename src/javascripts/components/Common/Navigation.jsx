@@ -136,7 +136,7 @@ class Navigation extends Component {
                         <Navbar.Brand>
                             <a href="javascript:void(0);"
                                onClick={()=> {
-                                     window.location.assign("http://www.lvh.me:8080/schools");
+                                     window.location.assign("http://www.lvh.me:8080/home");
                                         }}
                                style={{padding:"5px"}}>
                                 <img
@@ -168,7 +168,7 @@ class Navigation extends Component {
                                         {item.dropDown.map((dropDownItem, dropDownIndex)=>
 
                                                 <MenuItem key={dropDownIndex} eventKey={index+'.'+dropDownIndex}
-                                                          onClick={()=>{this.props.dispatch(routeActions.push(item.path+dropDownItem.path))}}
+                                                          onClick={()=>{this.props.dispatch(routeActions.push("/wiki"+item.path+dropDownItem.path))}}
                                                     >
                                                     {dropDownItem.name}
                                                 </MenuItem>
