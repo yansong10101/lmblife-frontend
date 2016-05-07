@@ -4,6 +4,8 @@ import CryptoJS from 'crypto-js';
 import {
     Button
 } from 'react-bootstrap';
+import {connect} from 'react-redux';
+
 import Cover2 from './Cover2.jsx';
 import SectionContent from './SectionContent.jsx';
 import FeatureGroup from './FeatureGroup.jsx';
@@ -67,7 +69,7 @@ class Home extends Component {
             return classString;
         };
         return (
-            <div className="school-homepage">
+            <div className="organization-homepage">
                 <div className={classSet({"edit-controller":true,"hidden":!this.props.admin})}>
                     <Button onClick={this._editClickHandler}>Edit</Button>
                     <Button onClick={this._saveClickHandler}>Save</Button>
@@ -117,4 +119,4 @@ class Home extends Component {
         );
     }
 }
-export default Home;
+export default connect()(Home);

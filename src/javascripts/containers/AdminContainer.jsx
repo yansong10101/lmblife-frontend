@@ -19,8 +19,6 @@ class AdminContainer extends Component {
 const mapStateToProps = state=>({
     admin: state.admin
 });
-//const mapDispatchToProps = (dispatch)=>( {dispatch});
-
 export default connect(mapStateToProps)(AdminContainer);
 
 

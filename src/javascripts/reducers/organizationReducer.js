@@ -3,7 +3,7 @@
  */
 import * as ActionTypes from '../constants/ActionTypes.js';
 
-export const school = (state = {
+export const organization = (state = {
     homepage: {
         logo: {
             src:null,

@@ -16,7 +16,7 @@ import Apply from './components/user/Apply.jsx';
 import EmailConfirm from './components/user/EmailConfirm.jsx';
 import NoMatch from './components/NoMatch.jsx';
 import RoutesManager from './containers/RoutesManager.jsx';
-import SchoolListController from './containers/SchoolListController.jsx';
+import OrganizationListController from './containers/OrganizationListController.jsx';
 
 import {checkLogin} from './actions/UserActions';
 class App extends Component {
@@ -33,12 +33,12 @@ class App extends Component {
                 <Router history={browserHistory}>
                     <Route path="/" component={RoutesManager}>
                         <IndexRoute component={HomeController}/>
-                        <Route path="freshman_guide/**" component={WikiController}/>
+                        <Route path="freshman_guide/**" component={WikiController}/>F
                         <Route path="everyday_life/**" component={WikiController}/>
                         <Route path="graduation_guide/**" component={WikiController}/>
                         <Route path="about/**" component={WikiController}/>
                         <Route path="wiki/**" component={WikiController}/>
-                        <Route path="schools" component={SchoolListController}/>
+                        <Route path="organizations" component={OrganizationListController}/>
                         <Route path="user" component={UserController}>
                           <IndexRoute component={SignUp}/>
                           <Route path="apply" component={Apply}/>

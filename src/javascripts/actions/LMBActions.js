@@ -2,7 +2,7 @@ import * as ActionTypes from './../constants/ActionTypes.js';
 import * as SDK from './../SDK/schoolInfo.js';
 //import {push} from 'react-router-redux';
 
-export const getSchoolList = () => {
+export const getOrganizationList = () => {
   return dispatch=> {
     console.log("LMB action: get schoolList");
     SDK.getSchoolList().then(function (data) {

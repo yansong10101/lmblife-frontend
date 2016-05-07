@@ -10,14 +10,12 @@ class HomeController extends Component {
     }
 
     render() {
-        if (!this.props.school.cached) {
+        if (!this.props.organization.cached) {
             this.props.dispatch(getHomepageSettings());
         }
         return (
-            <Home user={this.props.user}
-                  editable={this.props.school.editable}
-                  homepage={this.props.school.editable?this.props.school.editableHomepage:this.props.school.homepage}
-                  dispatch={this.props.dispatch}
+            <Home editable={this.props.organization.editable}
+                  homepage={this.props.organization.editable?this.props.organization.editableHomepage:this.props.organization.homepage}
                   uploadedImageURL={this.props.uploadedImageURL}
                   admin={true}
                 />
@@ -28,7 +26,7 @@ const mapStateToProps = state=> {
     return {
         user: state.user,
         uploadedImageURL: state.wiki.uploadedImageURL,
-        school: state.school
+        organization: state.organization,
     }
 };
 
