@@ -13,6 +13,7 @@ import {uploadImage} from '../../actions/WikiActions';
 import {editPage,savePage,cancelEdit} from './../../actions/HomeActions.js';
 import {UPLOAD_IMAGE} from '../../constants/ActionTypes.js';
 
+
 const imageSample = {
     white: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
     gray: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",

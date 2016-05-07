@@ -4,7 +4,7 @@
 import * as actionTypes from './../constants/ActionTypes.js';
 import {UPDATE_LOCATION} from 'react-router-redux';
 
-export const user = (state = {showLogin: false}, action)=> {
+export const user = (state = {showLogin: false,username:"游客"}, action)=> {
     switch (action.type) {
         case actionTypes.OPEN_LOGIN:
             return Object.assign({}, state, {showLogin: true});
@@ -22,7 +22,7 @@ export const user = (state = {showLogin: false}, action)=> {
             });
             break;
         case actionTypes.RECEIVE_LOGOUT:
-            return {showLogin: false};
+            return {showLogin: false,username:"游客"};
         default :
             return state;
     }

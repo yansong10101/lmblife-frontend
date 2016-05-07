@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Home from './../components/home/Home.jsx';
 import {getHomepageSettings} from './../actions/HomeActions';
 import {connect} from 'react-redux';
+import * as userRoles from './../constants/userRoles';
 
 
 class HomeController extends Component {
@@ -14,12 +15,11 @@ class HomeController extends Component {
             this.props.dispatch(getHomepageSettings());
         }
         return (
-            <Home user={this.props.user}
-                  editable={this.props.school.editable}
+            <Home editable={this.props.school.editable}
                   homepage={this.props.school.editable?this.props.school.editableHomepage:this.props.school.homepage}
                   dispatch={this.props.dispatch}
                   uploadedImageURL={this.props.uploadedImageURL}
-                  admin={true}
+                  admin={userRoles.ADMIN===this.props.user.role}
                 />
         );
     }
