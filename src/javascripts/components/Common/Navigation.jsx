@@ -1,4 +1,5 @@
 import React ,{Component, PropTypes}from 'react';
+import {connect} from 'react-redux';
 import {routeActions} from 'react-router-redux';
 import {openLogin,logout} from '../../actions/UserActions';
 import {
@@ -10,6 +11,7 @@ import {
     NavDropdown,
     Input
 } from 'react-bootstrap';
+import hostname from './../../SDK/utils/hostName.js';
 class Navigation extends Component {
     constructor(props, context) {
         super(props, context);
@@ -26,111 +28,15 @@ class Navigation extends Component {
         this.props.dispatch(logout(this.props.user.token))
     }
 
-    adminClickHandler(){
+    adminClickHandler() {
         this.props.dispatch(routeActions.push('/admin'));
     }
+
     render() {
-      var showFeature=true;
-      if(window.location.hostname.split(".").shift()==="www"){
-        showFeature=false;
-      }
-        const navigationData = [
-            {
-                name: "新生指南",
-                path: "/freshman_guide/",
-                dropDown: [
-                    {
-                        name: '学校简介',
-                        path: "school_introduction/"
-                    }, {
-                        name: '专业介绍',
-                        path: "academics/"
-                    }, {
-                        name: '学费&生活费',
-                        path: "cost/"
-                    }, {
-                        name: '周边环境',
-                        path: "surroundings/"
-                    }, {
-                        name: '就业状况',
-                        path: "employment_status/"
-                    }, {
-                        name: '接机帮',
-                        path: "airport_pickup/"
-                    }
-                ]
-            }, {
-                name: '日常生活',
-                path: "/everyday_life/",
-                dropDown: [
-                    {
-                        name: '学生会通知',
-                        path: "student_union_notices/",
-                    }, {
-                        name: '近期活动',
-                        path: "recent_activities/",
-                    }
-                ]
-            }, {
-                name: '毕业指南',
-                path: "/graduation_guide/",
-                dropDown: [
-                    {
-                        name: 'SSN',
-                        path: "ssn/"
-                    }, {
-                        name: 'CPT',
-                        path: "cpt/"
-                    }, {
-                        name: 'OPT',
-                        path: "opt/"
-                    }, {
-                        name: 'H1B',
-                        path: "h1b/"
-                    }, {
-                        name: 'Green Card',
-                        path: "green_card/"
-
-                    }, {
-                        name: 'Job Fair',
-                        path: "job_fair/",
-
-                    }
-                ]
-            }, {
-                name: '关于我们',
-                path: "/about/",
-
-                dropDown: [
-                    {
-                        name: 'University of Dayton',
-                        path: "university/",
-
-                    }, {
-                        name: '赞助商',
-                        path: "sponsor/",
-
-                    }, {
-                        name: '留美帮',
-                        path: "lmb-life/",
-
-                    }, {
-                        name: '联系我们',
-                        path: "contact/",
-                    }
-                ]
-            }
-        ];
-        const marginDiv = this.props.needMargin
-            ? <div style={{
-          height: "50px"
-        }}></div>
-            : null;
-        var logoSrc = this.props.school.editable ? this.props.school.editableHomepage.logo.src : this.props.school.homepage.logo.src;
-        let userButton = <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>;
-        if (this.props.user.token) {
-            userButton = <Button onClick={this.logoutClickHandler} bsStyle="warning">Log out</Button>;
-        }
+        const showFeature = "www" !== hostname;
+        const userButton = this.props.user.token ?
+            <Button onClick={this.logoutClickHandler} bsStyle="warning">Log out</Button>
+            : <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>;
         return (
             <div>
                 <Navbar fixedTop={this.props.needMargin}>
@@ -138,7 +44,7 @@ class Navigation extends Component {
                         <Navbar.Brand>
                             <a href="javascript:void(0);"
                                onClick={()=> {
-                                     window.location.assign("http://www.lvh.me:8080/schools");
+                                     window.location.assign("http://www.lvh.me:8080/");
                                         }}
                                style={{padding:"5px"}}>
                                 <img
@@ -153,17 +59,16 @@ class Navigation extends Component {
                                         }}
                                style={{padding:"5px"}}
                                 >
-                                <img
-                                    src={logoSrc}
-                                    alt="cssa UD LOGO"
-                                    style={{height:"40px"}}/>
+                                <img src={this.props.organization.logo.src}
+                                     alt={this.props.organization.logo.alt}
+                                     style={{height:"40px"}}/>
                             </a>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            {navigationData.map((item, index) =>
+                            {this.props.organization.featureGroups.map((item, index) =>
                                     <NavDropdown className={showFeature?"":"hidden"}
                                                  key={index} eventKey={index} title={item.name}
                                                  id={"nav-dropdown"+index}>
@@ -186,12 +91,21 @@ class Navigation extends Component {
                     </Navbar.Collapse>
 
                 </Navbar>
-                {marginDiv}
+                {this.props.needMargin && (<div style={{height: "50px"}}></div>)}
             </div>
         );
     }
 }
 Navigation.propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object.isRequired,
+    organization: PropTypes.shape({
+        logo: PropTypes.object.isRequired,
+        featureGroups: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
+            path: PropTypes.string,
+            dropDown: PropTypes.array.isRequired
+        })).isRequired
+    }).isRequired,
+    needMargin: PropTypes.bool
 };
-export default Navigation;
+export default connect()(Navigation);
