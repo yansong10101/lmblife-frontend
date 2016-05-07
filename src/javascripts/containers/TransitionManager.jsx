@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ContainerWrapper from './ContainerWrapper.jsx';
 import {connect} from 'react-redux';
 import {init} from './../actions/WikiActions.js';
 

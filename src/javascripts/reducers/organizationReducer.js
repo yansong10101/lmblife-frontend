@@ -50,8 +50,7 @@ export const organization = (state = {
     },
     list:[],
     editableHomepage:null,
-    editable: false,
-    cached:false
+    editable: false
 }, action)=> {
     switch (action.type) {
         case ActionTypes.EDIT_HOMEPAGE_CONTENT:
@@ -61,7 +60,7 @@ export const organization = (state = {
         case ActionTypes.SAVE_HOMEPAGE:
             return Object.assign({}, state, {editable: false,homepage:state.editableHomepage});
         case ActionTypes.GET_HOMEPAGE:
-            return Object.assign({}, state, {homepage:action.homepage,cached:true});
+            return Object.assign({}, state, {homepage:action.homepage});
         case ActionTypes.GET_SCHOOL_LIST:
             return Object.assign({}, state, {list:action.schoolList});
         case ActionTypes.CANCEL_EDIT_HOMEPAGE:
