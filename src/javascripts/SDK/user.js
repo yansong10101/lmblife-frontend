@@ -2,12 +2,14 @@ import request from 'superagent';
 import config from './config';
 import {setUserToken , token} from './utils/userToken';
 
-export function signup(username, password, confirmPassword) {
+export function signup(firstName, lastName, username, password, confirmPassword) {
     return new Promise((resolve, reject) => {
         request
             .post('/api/portal/customer/signup/')
             .type('form')
             .send({
+                first_name:firstName,
+                last_name:lastName,
                 email: username,
                 password1: password,
                 password2: confirmPassword
