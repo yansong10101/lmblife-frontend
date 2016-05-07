@@ -1,0 +1,82 @@
+//{
+//  "data": {
+//    "permission_groups": [],
+//    "email_check": false,
+//    "is_approved": false,
+//    "token": "b5ab960b526b0bd32e275e13bae56fd80c4a9864",
+//    "username": "leonard.li.per@gmail.com",
+//    "user_id": 2,
+//    "email": "leonard.li.per@gmail.com",
+//    "role": "customer",
+//    "last_modified": "2016-04-17 00:48"
+//  },
+//  "result": "success"
+//}
+//{
+//  "result": [
+//    {
+//      "customer": 1,
+//      "id": 24,
+//      "permission_group": 1,
+//      "university": 1,
+//      "is_approved": true,
+//      "admin_comment": "允许通过",
+//      "apply_level": 2,
+//      "apply_from_feature": 4,
+//      "grant_level": 5,
+//      "customer_comment": "申请 吖吖啊啊啊啊 权限"
+//    },
+//    {
+//      "customer": 2,
+//      "id": 25,
+//      "permission_group": null,
+//      "university": 1,
+//      "is_approved": null,
+//      "admin_comment": "",
+//      "apply_level": 2,
+//      "apply_from_feature": 4,
+//      "grant_level": 0,
+//      "customer_comment": "ctest1"
+//    }
+//  ]
+//}
+{
+  "data": {
+    "permission_groups": [
+      {
+        "university_id": 1,
+        "feature_permissions": [],
+        "university_name": "Stanford University",
+        "grant_level": 0
+      },
+      {
+        "university_id": 3,
+        "feature_permissions": [],
+        "university_name": "University California Berkeley",
+        "grant_level": 0
+      },
+      {
+        "university_id": 2,
+        "feature_permissions": [],
+        "university_name": "Northwestern University",
+        "grant_level": 0
+      },
+      {
+        "university_id": 6,
+        "feature_permissions": [],
+        "university_name": "test1",
+        "grant_level": 0
+      }
+    ],
+    "email_check": false,
+    "is_approved": false,
+    "token": "b5ab960b526b0bd32e275e13bae56fd80c4a9864",
+    "username": "leonard.li.per@gmail.com",
+    "user_id": 2,
+    "email": "leonard.li.per@gmail.com",
+    "role": "customer",
+    "last_modified": "2016-04-17 01:42"
+  },
+  "result": "success"
+}
+"{\"result\": {\"customer_id\": 2, \"permission_group_id\": null, \"is_approved\": null, \"created_date\": \"2016-04-17T01:04:25.495480+00:00\", \"last_modified_date\": \"2016-04-17T01:04:25.495517+00:00\", \"apply_from_feature_id\": 4, \"admin_comment\": \"\", \"apply_level\": 2, \"grant_level\": 0, \"id\": 25, \"university_id\": 1, \"customer_comment\": \"ctest1\"}}"

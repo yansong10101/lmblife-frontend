@@ -6,12 +6,31 @@ import {
 } from 'react-bootstrap';
 import {push} from 'react-router-redux';
 
+function sendMessageToIframe(msg,subdomain) {
+    onmessage=function(e){
+        if(e.data.data==="stored")   {
+            console.log(e.data);
+            location.assign("http://"+subdomain+".lvh.me:8080/");
+        }
+    };
+    var iframe = document.getElementsByTagName("iframe")[0];
+    iframe.src="http://"+subdomain+".lvh.me:8080/about/sponsor/";
+    iframe.onload=function (){
+        iframe.contentWindow.postMessage({action:"store",data:msg,key:"school"},"*");
+    }
+}
+
 class OrganizationList extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {query: ""};
-        this._onChange = this._onChange.bind(this)
+        this._onChange = this._onChange.bind(this);
+        this._onSelectOrganization = this._onSelectOrganization.bind(this);
 
+    }
+
+    _onSelectOrganization(org) {
+        sendMessageToIframe(org,org.slug_name);
     }
 
     _onChange(e) {
@@ -36,8 +55,8 @@ class OrganizationList extends Component {
                     </div>
                     <div className="index-results" type="uniform">
                         {filteredList.map((organization, index)=>
-                            <div key={index} className="result-content" onClick={()=>{
-                            window.location.assign("http://"+organization.slug_name+".lvh.me:8080")}}>
+                            <div key={index} className="result-content"
+                                 onClick={()=>{this._onSelectOrganization(organization)}}>
                                 <div className="organization-logo"
                                      style={{backgroundImage: "url(https://d1nrm4vx8nf098.cloudfront.net/10w6fdv7gw7mrmi_150.jpg)"}}>
                                 </div>
@@ -50,6 +69,7 @@ class OrganizationList extends Component {
 
                     </div>
                 </div>
+                <iframe style={{width:"1px",height:"1px",display:"none"}} />
             </div>
         );
     }

@@ -50,7 +50,8 @@ export const organization = (state = {
     },
     list:[],
     editableHomepage:null,
-    editable: false
+    editable: false,
+    cached:false
 }, action)=> {
     switch (action.type) {
         case ActionTypes.EDIT_HOMEPAGE_CONTENT:

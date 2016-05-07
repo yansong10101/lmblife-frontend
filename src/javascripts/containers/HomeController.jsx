@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Home from './../components/home/Home.jsx';
-import {getHomepageSettings} from './../actions/HomeActions';
 import {connect} from 'react-redux';
 
 
@@ -10,9 +9,6 @@ class HomeController extends Component {
     }
 
     render() {
-        if (!this.props.organization.cached) {
-            this.props.dispatch(getHomepageSettings());
-        }
         return (
             <Home editable={this.props.organization.editable}
                   homepage={this.props.organization.editable?this.props.organization.editableHomepage:this.props.organization.homepage}

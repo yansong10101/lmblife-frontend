@@ -290,7 +290,22 @@ $section-color: #333;
     }
   }
 }
-
+//motion eg
+.demo1 {
+  border-radius: 4px;
+  background-color: rgb(240, 240, 232);
+  position: relative;
+  margin: 5px 3px 10px;
+  width: 450px;
+  height: 50px;
+}
+.demo1-block {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: rgb(130, 181, 198);
+}
 @media (min-width: 480px) {
   .carousel-caption {
     right: 15%;
