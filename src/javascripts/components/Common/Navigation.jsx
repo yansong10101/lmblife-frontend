@@ -11,6 +11,7 @@ import {
     NavDropdown,
     Input
 } from 'react-bootstrap';
+import hostname from './../../SDK/utils/hostName.js';
 class Navigation extends Component {
     constructor(props, context) {
         super(props, context);
@@ -32,16 +33,10 @@ class Navigation extends Component {
     }
 
     render() {
-        const showFeature = !/^www/i.test(window.location.hostname);
-        const marginDiv = this.props.needMargin
-            ? <div style={{
-          height: "50px"
-        }}></div>
-            : null;
-        let userButton = <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>;
-        if (this.props.user.token) {
-            userButton = <Button onClick={this.logoutClickHandler} bsStyle="warning">Log out</Button>;
-        }
+        const showFeature = "www" !== hostname;
+        const userButton = this.props.user.token ?
+            <Button onClick={this.logoutClickHandler} bsStyle="warning">Log out</Button>
+            : <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>;
         return (
             <div>
                 <Navbar fixedTop={this.props.needMargin}>
@@ -96,9 +91,7 @@ class Navigation extends Component {
                     </Navbar.Collapse>
 
                 </Navbar>
-                {this.props.needMargin && (<div style={{
-          height: "50px"
-        }}></div>)}
+                {this.props.needMargin && (<div style={{height: "50px"}}></div>)}
             </div>
         );
     }
