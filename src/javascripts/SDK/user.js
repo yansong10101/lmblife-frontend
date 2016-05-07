@@ -51,6 +51,7 @@ export function logout() {
             })
             .end((err, res)=> {
                 if (!err && res) {
+                    setUserToken("");
                     resolve(res.body);
                 }
             });

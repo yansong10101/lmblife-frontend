@@ -11,7 +11,6 @@ function _getUserToken(){
         _token = window.localStorage.getItem('token');
         return _token;
     }
-
 }
 
 export function setUserToken(token){
