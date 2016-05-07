@@ -117,7 +117,7 @@ export const createFolder = (path)=> {
         console.log('wiki action: create folder');
         dispatch({
             type: ActionTypes.CREATE_FOLDER
-        })
+        });
         dispatch(routeActions.push('/wiki/' + path + '/'));
 
     }

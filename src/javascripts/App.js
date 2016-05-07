@@ -33,14 +33,14 @@ class App extends Component {
     componentDidMount(){
       this.props.dispatch(checkLogin());
         if (/^www\./i.test(window.location.hostname)) {
-            SchoolListController.fetchData(this.props.dispatch);
+            OrganizationListController.fetchData(this.props.dispatch);
         } else {
           this.props.dispatch(getHomepageSettings());
         }
     }
     _getHomeComponent(location, cb) {
         if (/^www\./i.test(window.location.hostname)) {
-            cb(null, SchoolListController)
+            cb(null, OrganizationListController)
         } else {
             cb(null, HomeController)
         }

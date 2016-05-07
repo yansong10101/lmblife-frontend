@@ -30,6 +30,7 @@ class OrganizationList extends Component {
     }
 
     _onSelectOrganization(org) {
+        console.log(org);
         sendMessageToIframe(org,org.slug_name);
     }
 

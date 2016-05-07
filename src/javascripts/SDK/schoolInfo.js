@@ -7,7 +7,7 @@ var defaultSchoolInfo = "U2FsdGVkX1/Uv2IbVGoj6VhvumH0YqpO0MM14wb2JJ348MzwFMBFZ+r
 export function getSchoolList() {
     var promise = new Promise((resolve, reject) => {
         request
-            .get("http://52.38.143.243:8001/api/universities/")
+            .get("/api/universities/list/")
             .end((err, res)=> {
                 //console.log(res);
                 resolve(res.body);
@@ -18,7 +18,7 @@ export function getSchoolList() {
 export function getSchoolInfo(pk) {
     var promise = new Promise((resolve, reject) => {
         request
-            .get("http://52.38.143.243:8001/api/universities/" + pk + "/")
+            .get("/api/universities/" + pk + "/")
             .end((err, res)=> {
                 //console.log(res);
                 resolve(res.body);
@@ -29,7 +29,7 @@ export function getSchoolInfo(pk) {
 export function updateSchoolInfo(pk, info) {
     var promise = new Promise((resolve, reject) => {
         request
-            .post("http://52.38.143.243:8001/api/universities/update/" + pk + "/")
+            .post("/api/universities/update/" + pk + "/")
             .type('form')
             .send(info)
             .end((err, res)=> {
@@ -43,7 +43,7 @@ export function updateSchoolInfo(pk, info) {
 export function addSchoolInfo(info) {
     var promise = new Promise((resolve, reject) => {
         request
-            .post('http://52.38.143.243:8001/api/universities/create/')
+            .post('/api/universities/create/')
             .type('form')
             .send(info)
             .end((err, res)=> {
@@ -69,7 +69,7 @@ export function addSchoolInfo(info) {
 //},
 export function getHomepageSettings() {
     var promise = new Promise((resolve, reject) => {
-        setTimeout(resolve(defaultSchoolInfo), 600);
+        setTimeout(function(){resolve(defaultSchoolInfo)}, 600);
     });
     return promise;
 }
@@ -77,7 +77,7 @@ export function getHomepageSettings() {
 export function saveHomepageSettings(pageContent) {
     var promise = new Promise((resolve, reject) => {
         defaultSchoolInfo = pageContent;
-        setTimeout(resolve(pageContent), 600);
+        setTimeout(function(){resolve(pageContent)}, 600);
     });
     return promise;
 }

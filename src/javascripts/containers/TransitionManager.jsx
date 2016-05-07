@@ -21,7 +21,7 @@ class TransitionManager extends Component {
         if (pathname && key && pathname !== this.oldPath || key !== this.oldKey) {
             var patt;
             Object.keys(_registeredInitActions).every((e, i)=> {
-                console.log(e);
+                //console.log(e);
                 patt = new RegExp(e, "g");
                 if (patt.test(pathname)) {
                     shouldChildrenUpdate = false;
