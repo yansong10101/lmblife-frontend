@@ -1,24 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {
-    Button,
-    Input,
-    Glyphicon
-} from 'react-bootstrap';
+import {Glyphicon} from 'react-bootstrap';
 import {push} from 'react-router-redux';
-
-function sendMessageToIframe(msg,subdomain) {
-    onmessage=function(e){
-        if(e.data.data==="stored")   {
-            console.log(e.data);
-            location.assign("http://"+subdomain+".lvh.me:8080/");
-        }
-    };
-    var iframe = document.getElementsByTagName("iframe")[0];
-    iframe.src="http://"+subdomain+".lvh.me:8080/about/sponsor/";
-    iframe.onload=function (){
-        iframe.contentWindow.postMessage({action:"store",data:msg,key:"school"},"*");
-    }
-}
+import config from './../../SDK/config.js';
 
 class OrganizationList extends Component {
     constructor(props, context) {
@@ -30,13 +13,13 @@ class OrganizationList extends Component {
     }
 
     _onSelectOrganization(org) {
-        console.log(org);
-        sendMessageToIframe(org,org.slug_name);
+        window.location.assign("http://" + org.slug_name + config.host.substr(3));
     }
 
     _onChange(e) {
         this.setState({query: e.target.value});
     }
+
     render() {
         var regex = new RegExp(this.state.query, 'i');
 
@@ -70,7 +53,7 @@ class OrganizationList extends Component {
 
                     </div>
                 </div>
-                <iframe style={{width:"1px",height:"1px",display:"none"}} />
+                <iframe style={{width:"1px",height:"1px",display:"none"}}/>
             </div>
         );
     }

@@ -7,5 +7,4 @@ import {Provider} from 'react-redux';
 import App from './App.js';
 import { browserHistory} from 'react-router';
 const store = configureStore();
-
 ReactDOM.render(<Provider store={store}><App/></Provider>,document.getElementById('main'));

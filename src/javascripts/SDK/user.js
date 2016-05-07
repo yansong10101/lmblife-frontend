@@ -1,6 +1,6 @@
 import request from 'superagent';
 import config from './config';
-import {setUserToken , token} from './utils/userToken';
+import {getToken,setToken} from './utils/userToken';
 
 export function signup(username, password, confirmPassword) {
     return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ export function login(username, password) {
                 if (res.body.result === 'success') {
                     let data = res.body.data;
                     if(data.token){
-                        setUserToken(data.token);
+                        setToken(data.token);
                     }
                     resolve(data);
                 }
@@ -47,10 +47,11 @@ export function logout() {
             .post('/api/portal/user/logout/')
             .type('form')
             .send({
-                token
+                token:getToken()
             })
             .end((err, res)=> {
                 if (!err && res) {
+                    setToken("");
                     resolve(res.body);
                 }
             });
@@ -62,7 +63,7 @@ export function getUserInfo() {
         request
             .get('/api/portal/refresh-cache/user-cache/')
             .query({
-                token
+                token:getToken()
             })
             .end((err, res) => {
                 resolve(res.body.data);
@@ -74,7 +75,7 @@ export function emailVerification() {
     return new Promise((resolve, reject)=> {
         request.get('/api/portal/email-token-verification/')
             .query({
-                token
+                token:getToken()
             })
             .end((err, res) => {
                 resolve(res.body.is_verified);
@@ -86,7 +87,7 @@ export function applyPermission(university, customer_comment) {
     return new Promise((resolve, reject)=> {
         request.post('/api/management/customer-permission/apply/')
             .send({
-                token,
+                token:getToken(),
                 university,
                 customer_comment
             })

@@ -23,28 +23,42 @@ import TransitionManager from './containers/TransitionManager.jsx';
 import {checkLogin} from './actions/UserActions';
 import {getHomepageSettings} from './actions/HomeActions';
 
+import hostname from './SDK/utils/hostName.js';
+import config from './SDK/config.js';
+import {tokenPromise} from './SDK/utils/userToken.js';
+
 class App extends Component {
     constructor(props, context) {
-        super(props, context); 
-        this._getHomeComponent=this._getHomeComponent.bind(this);
-        registerInitAction(init.bind(this),"/wiki/**");
-
+        super(props, context);
+        this._getHomeComponent = this._getHomeComponent.bind(this);
+        registerInitAction(init.bind(this), "/wiki/**");
     }
-    componentDidMount(){
-      this.props.dispatch(checkLogin());
-        if (/^www\./i.test(window.location.hostname)) {
-            OrganizationListController.fetchData(this.props.dispatch);
+
+    componentDidMount() {
+
+        if (hostname === "www") {
+            if (self===top){
+                this.props.dispatch(checkLogin());
+                OrganizationListController.fetchData(this.props.dispatch);
+            }
+
         } else {
-          this.props.dispatch(getHomepageSettings());
+            tokenPromise.then((token)=> {
+                console.log("login in subdomain");
+                this.props.dispatch(checkLogin())
+            });
+            this.props.dispatch(getHomepageSettings());
         }
     }
+
     _getHomeComponent(location, cb) {
-        if (/^www\./i.test(window.location.hostname)) {
+        if (hostname === "www") {
             cb(null, OrganizationListController)
         } else {
             cb(null, HomeController)
         }
     }
+
     render() {
         return (
             <div>
@@ -56,15 +70,17 @@ class App extends Component {
                         <Route path="wiki/**" component={WikiController}/>
                         <Route path="organizations" component={OrganizationListController}/>
                         <Route path="user" component={UserController}>
-                          <IndexRoute component={SignUp}/>
-                          <Route path="apply" component={Apply}/>
-                          <Route path="email-confirm" component={EmailConfirm}/>
+                            <IndexRoute component={SignUp}/>
+                            <Route path="apply" component={Apply}/>
+                            <Route path="email-confirm" component={EmailConfirm}/>
                         </Route>
                         <Route path="admin" component={AdminContainer}/>
                         <Route path="**" component={NoMatch}/>
                     </Route>
                 </Router>
                 <LayoutController />
+                {hostname !== "www" && (
+                    <iframe src={"http://"+config.host+"/nomatch/"} style={{display:"none"}}></iframe>)}
             </div>
         );
     }

@@ -15,7 +15,6 @@ class Breadcrumb extends Component {
             _link += item + '/';
             if (!this.props.activeLastOne || arr.length !== index + 1) {
                 var path = _link;
-                console.log(path);
                 return (<li key={index}>
                     <a onClick={()=>{this.props.dispatch(routeActions.push(path))}}>{item}</a>
                 </li>);
