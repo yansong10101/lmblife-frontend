@@ -210,14 +210,14 @@ $section-color: #333;
   width: 6%;
 }
 
-.school-list-header {
+.organization-list-header {
   margin: 0 auto;
   max-width: 630px;
   padding-top: 40px;
   position: relative;
 }
 
-.school-selector-wrapper {
+.organization-selector-wrapper {
   margin: 0 auto;
   max-width: 630px;
   .index-query {
@@ -236,7 +236,7 @@ $section-color: #333;
     border: 1px solid #dedede;
     border-bottom: 0;
     cursor: pointer;
-    .school-logo {
+    .organization-logo {
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
@@ -246,14 +246,14 @@ $section-color: #333;
       width: 40px;
       height: 40px;
     }
-    .school-info {
+    .organization-info {
 
       padding-top: 10px;
       vertical-align: top;
       line-height: 22px;
       margin-left: 5px;
       overflow: hidden;
-      .school-name {
+      .organization-name {
         font-size: 16px;
         word-wrap: normal;
         text-overflow: ellipsis;
@@ -269,7 +269,7 @@ $section-color: #333;
   background: #f2f3f6;
 }
 
-.school-homepage {
+.organization-homepage {
   .edit-controller {
     position: fixed;
     right: 0;
@@ -290,7 +290,22 @@ $section-color: #333;
     }
   }
 }
-
+//motion eg
+.demo1 {
+  border-radius: 4px;
+  background-color: rgb(240, 240, 232);
+  position: relative;
+  margin: 5px 3px 10px;
+  width: 450px;
+  height: 50px;
+}
+.demo1-block {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: rgb(130, 181, 198);
+}
 @media (min-width: 480px) {
   .carousel-caption {
     right: 15%;

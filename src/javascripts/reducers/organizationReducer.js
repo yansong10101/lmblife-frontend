@@ -3,7 +3,7 @@
  */
 import * as ActionTypes from '../constants/ActionTypes.js';
 
-export const school = (state = {
+export const organization = (state = {
     homepage: {
         logo: {
             src:null,
@@ -50,7 +50,8 @@ export const school = (state = {
     },
     list:[],
     editableHomepage:null,
-    editable: false
+    editable: false,
+    cached:false
 }, action)=> {
     switch (action.type) {
         case ActionTypes.EDIT_HOMEPAGE_CONTENT:

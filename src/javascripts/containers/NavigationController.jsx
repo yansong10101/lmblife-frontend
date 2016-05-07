@@ -100,14 +100,13 @@ class NavigationController extends Component {
         return (
             <Navigation needMargin={navFixed}
                         organization={this.props.organization}
-                        user={this.props.user}
-                />
+                        user={this.props.user}/>
         );
     }
 }
 const mapStateToProps = state=>({
     organization: {
-        logo: state.school.homepage.logo,
+        logo: state.organization.homepage.logo,
         featureGroups: navigationData
     },
     user: state.user

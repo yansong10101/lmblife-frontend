@@ -8,7 +8,7 @@ export const getHomepageSettings = () => {
     console.log("Home action: get page setting");
     var schoolname=window.location.hostname.split(".").shift();
     SDK.getHomepageSettings(schoolname).then(function (data) {
-      console.log(data);
+      //console.log(data);
       dispatch({
         type: ActionTypes.GET_HOMEPAGE,
         homepage:JSON.parse(CryptoJS.RC4.decrypt(data,"myKey").toString(CryptoJS.enc.Utf8))

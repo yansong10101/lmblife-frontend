@@ -14,9 +14,10 @@ class WikiController extends Component {
     }
 
     render() {
+        const folderPath=this.props.location.pathname.replace(/\/[A-Za-z0-9_-]+$/,"/");
         return (
             <Wiki currentPage={this.props.currentPage} view={this.props.currentView}
-                  folderItems={this.props.folderItems} folderPath={this.props.folderPath}
+                  folderItems={this.props.folderItems} folderPath={folderPath}
                   uploadedImageURL={this.props.uploadedImageURL}
                   dispatch={this.props.dispatch}
                 />
@@ -27,7 +28,6 @@ const mapStateToProps = state=>({
     currentPage: state.wiki.currentPage,
     currentView: state.wiki.currentView,
     folderItems: state.wiki.folderItems,
-    folderPath: state.wiki.folderPath,
     uploadedImageURL: state.wiki.uploadedImageURL
 });
 //const mapDispatchToProps = (dispatch)=>( {dispatch});

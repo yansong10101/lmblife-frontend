@@ -29,7 +29,6 @@ export const closeLogin = ()=> {
 export const login = (username, password)=> {
   return dispatch=> {
     sdk.login(username, password).then((data)=> {
-      window.localStorage.setItem('token',data.token);
       dispatch({
         type:actionTypes.RECEIVE_LOGIN,
         data
@@ -45,7 +44,6 @@ export const login = (username, password)=> {
 export const logout = (token) =>{
   return dispatch =>{
     sdk.logout(token);
-    window.localStorage.setItem('token',"");
     dispatch({
       type:actionTypes.RECEIVE_LOGOUT
     });
@@ -54,15 +52,12 @@ export const logout = (token) =>{
 
 export const checkLogin = () =>{
   return dispatch =>{
-    let token = window.localStorage.getItem('token');
-    if(token){
-      sdk.getUserInfo(token).then((data)=>{
+      sdk.getUserInfo().then((data)=>{
         dispatch({
           type:actionTypes.RECEIVE_LOGIN,
           data
         });
       })
-    }
   }
 };
 
@@ -74,9 +69,9 @@ export const signUp = (username, password, confirmPassword) => {
   }
 };
 
-export const applyPermission = (token)=>{
+export const applyPermission = ()=>{
   return dispatch => {
-    sdk.getUserInfo(token).then((data)=>{
+    sdk.getUserInfo().then((data)=>{
       if(!data.email_check){
         dispatch(push('/user/email-confirm'))
       }else {
