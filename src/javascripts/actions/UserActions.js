@@ -11,84 +11,107 @@ import * as sdk from '../SDK/user';
 //   });
 // },
 export const openLogin = ()=> {
-  return dispatch=> {
-    dispatch({
-      type: actionTypes.OPEN_LOGIN
-    })
-  }
+    return dispatch=> {
+        dispatch({
+            type: actionTypes.OPEN_LOGIN
+        })
+    }
 };
 
 export const closeLogin = ()=> {
-  return dispatch=> {
-    dispatch({
-      type: actionTypes.CLOSE_LOGIN
-    })
-  }
+    return dispatch=> {
+        dispatch({
+            type: actionTypes.CLOSE_LOGIN
+        })
+    }
 };
 
 export const login = (username, password)=> {
-  return dispatch=> {
-    sdk.login(username, password).then((data)=> {
-      window.localStorage.setItem('token',data.token);
-      dispatch({
-        type:actionTypes.RECEIVE_LOGIN,
-        data
-      });
-      dispatch({
-          type: actionTypes.CLOSE_LOGIN
-        });
-      }
-    );
-  }
-};
-
-export const logout = (token) =>{
-  return dispatch =>{
-    sdk.logout(token);
-    window.localStorage.setItem('token',"");
-    dispatch({
-      type:actionTypes.RECEIVE_LOGOUT
-    });
-  }
-};
-
-export const checkLogin = () =>{
-  return dispatch =>{
-    let token = window.localStorage.getItem('token');
-    if(token){
-      sdk.getUserInfo(token).then((data)=>{
-        dispatch({
-          type:actionTypes.RECEIVE_LOGIN,
-          data
-        });
-      })
+    return dispatch=> {
+        sdk.login(username, password).then((data)=> {
+                window.localStorage.setItem('token', data.token);
+                dispatch({
+                    type: actionTypes.RECEIVE_LOGIN,
+                    data
+                });
+                dispatch({
+                    type: actionTypes.CLOSE_LOGIN
+                });
+            }
+        );
     }
-  }
 };
 
-export const signUp = (username, password, confirmPassword) => {
-  return dispatch => {
-    sdk.signup(username, password, confirmPassword).then(data=>{
-      dispatch(push('/user/email-confirm'));
-    });
-  }
+export const logout = (token) => {
+    return dispatch => {
+        sdk.logout(token);
+        window.localStorage.setItem('token', "");
+        dispatch({
+            type: actionTypes.RECEIVE_LOGOUT
+        });
+    }
 };
 
-export const applyPermission = (token)=>{
-  return dispatch => {
-    sdk.getUserInfo(token).then((data)=>{
-      if(!data.email_check){
-        dispatch(push('/user/email-confirm'))
-      }else {
-        dispatch(push('/user/apply'))
-      }
-    });
-  }
+export const checkLogin = () => {
+    return dispatch => {
+        let token = window.localStorage.getItem('token');
+        if (token) {
+            sdk.getUserInfo(token).then((data)=> {
+                dispatch({
+                    type: actionTypes.RECEIVE_LOGIN,
+                    data
+                });
+            })
+        }
+    }
+};
+
+export const signUp = (firstName, lastName, username, password, confirmPassword) => {
+    return dispatch => {
+        sdk.signup(firstName, lastName, username, password, confirmPassword).then(data=> {
+            dispatch(push('/user/email-confirm'));
+        });
+    }
+};
+
+export const applyPermission = (token)=> {
+    return dispatch => {
+        sdk.getUserInfo(token).then((data)=> {
+            if (!data.email_check) {
+                dispatch(push('/user/email-confirm'))
+            } else {
+                dispatch(push('/user/apply'))
+            }
+        });
+    }
 };
 
 export const emailConfirmed = () => {
-  return dispatch => {
-    dispatch(push('/user/apply'))
-  }
+    return dispatch => {
+        dispatch(push('/user/apply'))
+    }
 };
+
+export function changePassword(oldPassword, password, confirmPassword){
+    return dispatch =>{
+        sdk.changePassword(oldPassword, password, confirmPassword)
+            .then(()=>{
+                dispatch({
+                    type:actionTypes.RECEIVE_CHANGE_PASSWORD
+                })
+            })
+    }
+}
+
+export function updateAvatar(file){
+    return dispatch =>{
+        sdk.updateAvatar(file)
+            .then((imageUrl)=>{
+                dispatch({
+                    type:actionTypes.RECEIVE_UPDATE_AVATAR,
+                    imageUrl
+                })
+            })
+    }
+}
 // More Actions

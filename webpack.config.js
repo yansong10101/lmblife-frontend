@@ -17,9 +17,6 @@ module.exports = {
         }
     },
     devtool: "#inline-source-map",
-    resolve: {
-        root: ['node_modules']
-    },
     module: {
         loaders: [
             {
@@ -46,6 +43,9 @@ module.exports = {
             {from: '../node_modules/tinymce/plugins', to: 'plugins'},
             {from: '../node_modules/tinymce/skins', to: 'skins'},
             {from: '../node_modules/tinymce/themes', to: 'themes'}
-        ])
+        ]),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"development"'
+        })
     ]
 };

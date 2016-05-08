@@ -1,6 +1,5 @@
 import React ,{Component, PropTypes}from 'react';
 import {routeActions} from 'react-router-redux';
-import {openLogin,logout} from '../../actions/UserActions';
 import {
     Button,
     Navbar,
@@ -10,30 +9,22 @@ import {
     NavDropdown,
     Input
 } from 'react-bootstrap';
+import NavigationUserItem from './NavigationUserItem.jsx';
 class Navigation extends Component {
     constructor(props, context) {
         super(props, context);
-        this.loginClickHandler = this.loginClickHandler.bind(this);
-        this.logoutClickHandler = this.logoutClickHandler.bind(this);
         this.adminClickHandler = this.adminClickHandler.bind(this);
     }
 
-    loginClickHandler() {
-        this.props.dispatch(openLogin());
-    }
-
-    logoutClickHandler() {
-        this.props.dispatch(logout(this.props.user.token))
-    }
-
-    adminClickHandler(){
+    adminClickHandler() {
         this.props.dispatch(routeActions.push('/admin'));
     }
+
     render() {
-      var showFeature=true;
-      if(window.location.hostname.split(".").shift()==="www"){
-        showFeature=false;
-      }
+        var showFeature = true;
+        if (window.location.hostname.split(".").shift() === "www") {
+            showFeature = false;
+        }
         const navigationData = [
             {
                 name: "新生指南",
@@ -127,10 +118,7 @@ class Navigation extends Component {
         }}></div>
             : null;
         var logoSrc = this.props.school.editable ? this.props.school.editableHomepage.logo.src : this.props.school.homepage.logo.src;
-        let userButton = <Button onClick={this.loginClickHandler} bsStyle="success">Log in</Button>;
-        if (this.props.user.token) {
-            userButton = <Button onClick={this.logoutClickHandler} bsStyle="warning">Log out</Button>;
-        }
+
         return (
             <div>
                 <Navbar fixedTop={this.props.needMargin}>
@@ -152,7 +140,7 @@ class Navigation extends Component {
                                         this.props.dispatch(routeActions.push("/"))
                                         }}
                                style={{padding:"5px"}}
-                                >
+                            >
                                 <img
                                     src={logoSrc}
                                     alt="cssa UD LOGO"
@@ -164,23 +152,22 @@ class Navigation extends Component {
                     <Navbar.Collapse>
                         <Nav>
                             {navigationData.map((item, index) =>
-                                    <NavDropdown className={showFeature?"":"hidden"}
-                                                 key={index} eventKey={index} title={item.name}
-                                                 id={"nav-dropdown"+index}>
-                                        {item.dropDown.map((dropDownItem, dropDownIndex)=>
+                                <NavDropdown className={showFeature?"":"hidden"}
+                                             key={index} eventKey={index} title={item.name}
+                                             id={"nav-dropdown"+index}>
+                                    {item.dropDown.map((dropDownItem, dropDownIndex)=>
 
-                                                <MenuItem key={dropDownIndex} eventKey={index+'.'+dropDownIndex}
-                                                          onClick={()=>{this.props.dispatch(routeActions.push(item.path+dropDownItem.path))}}
-                                                    >
-                                                    {dropDownItem.name}
-                                                </MenuItem>
-                                        )}
-                                    </NavDropdown>
+                                        <MenuItem key={dropDownIndex} eventKey={index+'.'+dropDownIndex}
+                                                  onClick={()=>{this.props.dispatch(routeActions.push(item.path+dropDownItem.path))}}
+                                        >
+                                            {dropDownItem.name}
+                                        </MenuItem>
+                                    )}
+                                </NavDropdown>
                             )}
                         </Nav>
                         <Navbar.Form pullRight>
-                            {this.props.user.username}
-                            {userButton}
+                            <NavigationUserItem user={this.props.user}/>
                             <Button onClick={this.adminClickHandler}>Admin</Button>
                         </Navbar.Form>
                     </Navbar.Collapse>

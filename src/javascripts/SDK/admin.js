@@ -1,5 +1,5 @@
 import request from 'superagent';
-import {token} from './utils/userToken';
+import {getToken} from './utils/userToken';
 
 export function getFeatureGroups() {
     return new Promise(function (resolve, reject) {
@@ -17,7 +17,7 @@ export function getFeatureGroups() {
 export function getCustomerList(slug) {
     return new Promise((resolve, reject) => {
         request.get('/api/management/perm-group-list/')
-            .query({university_slug: slug, token})
+            .query({university_slug: slug, getToken})
             .end((err, res) => {
                 resolve(res.body);
             });

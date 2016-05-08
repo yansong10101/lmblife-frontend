@@ -4,7 +4,7 @@
 
 let _token;
 
-function _getUserToken(){
+export function getToken(){
     if(_token){
         return _token;
     }else {
@@ -13,9 +13,7 @@ function _getUserToken(){
     }
 }
 
-export function setUserToken(token){
+export function setToken(token){
     _token = token;
     window.localStorage.setItem('token', token);
 }
-
-export const token = (function(){return _getUserToken()})();

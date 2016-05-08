@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Navigation from '../Common/Navigation.jsx';
+import Navigation from '../navigation/Navigation.jsx';
 import LoginModal from '../Common/LoginModal.jsx';
 import Editor from './Editor.jsx';
 import Content from './Content.jsx';

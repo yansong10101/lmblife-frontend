@@ -20,6 +20,8 @@ export const OPEN_LOGIN = 'open_login';
 export const CLOSE_LOGIN = 'close_login';
 export const RECEIVE_LOGIN = 'receive_login';
 export const RECEIVE_LOGOUT = 'receive_logout';
+export const RECEIVE_CHANGE_PASSWORD = 'receive_change_password';
+export const RECEIVE_UPDATE_AVATAR = 'receive_update_avatar';
 
 //home
 export const APPLY_PERMISSION = 'apply_permission';
